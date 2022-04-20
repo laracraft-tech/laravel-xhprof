@@ -3,24 +3,141 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Build Status][ico-travis]][link-travis]
-[![StyleCI][ico-styleci]][link-styleci]
+<!--[![StyleCI][ico-styleci]][link-styleci]-->
 
 This package provides you with a simple setup to profile your laravel application
 with the well known XHProf php extension originally developed by facebook. 
-It also shows to steps to install XHProf UI, a UI to visualize and analyze the results
+It also leads you through the steps to install XHProf UI, a UI to visualize, save and analyze the results
 of the profiling.
 
 ## Installation
 
-Via Composer
+First you need to install the php extension.
+It's highly recommended using ondrejs ppa.
+It's well maintained and provides quite all php versions.
+
+### PHP Extension
+
+``` bash
+$ sudo add-apt-repository ppa:ondrej/php
+$ sudo apt-get update
+$ sudo apt-get install php php-xhprof graphviz
+$ # you can now check if the extension was successfully installed
+$ php -i | grep xhprof
+```
+
+Note: we need graphviz to generate callgraphs.
+
+### Laravel Sail
+
+If you are using laravel sail, here's a setup for you:
+
+``` bash
+$ sail up -d
+$ sail artisan sail:publish
+$ # in docker-compose.yml check wich php version is used under build->context (eg. ./docker/8.1)
+$ # if you know the php-version you can type:
+$ nano docker/<php-version>/Dockerfile
+$ # find the block where all php extionsions are installed and add "php<php-version>-xhprof graphviz \"
+$ # now you need to rebuild sail
+$ sail down ; sail build --no-cache ; sail up -d # this may take a while...
+$ # you can now check if the extension was successfully installed
+$ sail php -i | grep xhprof
+```
+
+Note: The provided Laravel Sail Dockerfile already uses ondrejs ppa.
+
+### Install the Package
 
 ``` bash
 $ composer require sairahcaz/laravel-xhprof
+$ php artisan vendor:publish --provider="Sairahcaz\LaravelXhprof\XHProfServiceProvider" --tag="config"
+```
+
+### Install the UI
+
+We are using the recommended fork by php.net from "preinheimer":
+https://www.php.net/manual/en/xhprof.requirements.php
+
+``` bash
+$ mkdir public/vendor ; git clone git@github.com:preinheimer/xhprof.git ./public/vendor/xhprof
+$ # if you havent already, I recommend adding public/vendor to your .gitignore
+$ echo "/public/vendor" >> .gitignore
+```
+
+### Database
+
+Since the database table name,
+which the UI package is using behind to store and read data from the database,
+is hard coded to ``details`` and you already may have a table named like that,
+you may need to make some additional steps. If not, here first the simple way:
+
+<br/>
+
+#### In case you DON'T HAVE an own ``details`` table in your database:
+
+``` bash
+$ php artisan vendor:publish --provider="Sairahcaz\LaravelXhprof\XHProfServiceProvider" --tag="migrations"
+$ php artisan migrate
+```
+<br/>
+
+#### In case you HAVE an own ``details`` table in your database:
+
+I recommend to just use a different database. 
+
+``` mysql
+CREATE DATABASE xhprof;
+USE xhprof;
+CREATE TABLE IF NOT EXISTS `details` (
+  `idcount` int(11) NOT NULL AUTO_INCREMENT,
+  `id` char(64) NOT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `c_url` varchar(255) DEFAULT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `server name` varchar(64) DEFAULT NULL,
+  `perfdata` mediumblob,
+  `type` tinyint(4) DEFAULT NULL,
+  `cookie` blob,
+  `post` blob,
+  `get` blob,
+  `pmu` int(11) DEFAULT NULL,
+  `wt` int(11) DEFAULT NULL,
+  `cpu` int(11) DEFAULT NULL,
+  `server_id` char(64) DEFAULT NULL,
+  `aggregateCalls_include` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`idcount`),
+  KEY `url` (`url`),
+  KEY `c_url` (`c_url`),
+  KEY `cpu` (`cpu`),
+  KEY `wt` (`wt`),
+  KEY `pmu` (`pmu`),
+  KEY `timestamp` (`timestamp`),
+  KEY `Aggregation of the last n entries by Servername` (`server name`(5),`timestamp`)
+);
+```
+
+Note: you also need to create a user which has privileges on that new database!
+
+### Config
+
+Now let's configure some settings!
+
+``` bash
+$ cp public/vendor/xhprof/xhprof_lib/config.sample.php public/vendor/xhprof/xhprof_lib/config.php
+$ # 1. change the db credentials to your needs
+$ # 2. enable dot_binary section
+$ # 3. if your local set $controlIPs to false
+$ nano public/vendor/xhprof/xhprof_lib/config.php
 ```
 
 ## Usage
 
+Just set ``XHPROF_ENABLED=true`` in your .env file and
+now every request you make to your application gets profiled. \
+Visit ``<your-host>/vendor/xhprof/xhprof_html/`` to see your profiling results.
 
+<!-- 
 
 ## Change log
 
@@ -31,6 +148,8 @@ Please see the [changelog](changelog.md) for more information on what has change
 ``` bash
 $ composer test
 ```
+
+ -->
 
 ## Security
 
