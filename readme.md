@@ -50,7 +50,7 @@ Note: The provided Laravel Sail Dockerfile already uses ondrejs ppa.
 ### Install the Package
 
 ``` bash
-$ composer require sairahcaz/laravel-xhprof
+$ composer require sairahcaz/laravel-xhprof --dev
 $ php artisan vendor:publish --provider="Sairahcaz\LaravelXhprof\XHProfServiceProvider" --tag="config"
 ```
 
