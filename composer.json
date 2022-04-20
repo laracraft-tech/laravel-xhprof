@@ -1,0 +1,38 @@
+{
+    "name": "sairahcaz/laravel-xhprof",
+    "description": "Easy XHProf setup to profile your laravel application!",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Zacharias Creutznacher",
+            "email": "zacharias.creutznacher@gmail.com",
+            "homepage": "https://www.zacharias-creutznacher.de/english/"
+        }
+    ],
+    "homepage": "https://github.com/sairahcaz/laravel-xhprof",
+    "keywords": ["laravel", "xhprof", "profiling", "profiler", "profile", "php"],
+    "require": {
+        "illuminate/support": "~9"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~9.0",
+        "orchestra/testbench": "~7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sairahcaz\\LaravelXhprof\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sairahcaz\\LaravelXhprof\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sairahcaz\\LaravelXhprof\\XHProfServiceProvider"
+            ]
+        }
+    }
+}

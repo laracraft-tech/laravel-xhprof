@@ -1,0 +1,52 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
+
+class CreateXHProfTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        DB::statement('CREATE TABLE IF NOT EXISTS `details` (
+          `idcount` int(11) NOT NULL AUTO_INCREMENT,
+          `id` char(64) NOT NULL,
+          `url` varchar(255) DEFAULT NULL,
+          `c_url` varchar(255) DEFAULT NULL,
+          `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+          `server name` varchar(64) DEFAULT NULL,
+          `perfdata` mediumblob,
+          `type` tinyint(4) DEFAULT NULL,
+          `cookie` blob,
+          `post` blob,
+          `get` blob,
+          `pmu` int(11) DEFAULT NULL,
+          `wt` int(11) DEFAULT NULL,
+          `cpu` int(11) DEFAULT NULL,
+          `server_id` char(64) DEFAULT NULL,
+          `aggregateCalls_include` varchar(255) DEFAULT NULL,
+          PRIMARY KEY (`idcount`),
+          KEY `url` (`url`),
+          KEY `c_url` (`c_url`),
+          KEY `cpu` (`cpu`),
+          KEY `wt` (`wt`),
+          KEY `pmu` (`pmu`),
+          KEY `timestamp` (`timestamp`),
+          KEY `Aggregation of the last n entries by Servername` (`server name`(5),`timestamp`)
+        );');
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('details');
+    }
+};
