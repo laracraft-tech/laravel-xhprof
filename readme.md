@@ -1,11 +1,22 @@
-# Laravel XHProf
+<p align="center"><img src="https://i.imgur.com/nsWZks5.png" alt="Logo Laravel XHProf"></p>
+
+<p align="center">
+<a href="https://packagist.org/packages/sairahcaz/laravel-xhprof"><img src="https://img.shields.io/packagist/dt/sairahcaz/laravel-xhprof" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/sairahcaz/laravel-xhprof"><img src="https://img.shields.io/packagist/v/sairahcaz/laravel-xhprof" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/sairahcaz/laravel-xhprof"><img src="https://img.shields.io/packagist/l/sairahcaz/laravel-xhprof" alt="License"></a>
+</p>
+
+<!--
+#Laravel XHProf
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Build Status][ico-travis]][link-travis]
-<!--[![StyleCI][ico-styleci]][link-styleci]-->
+-->
 
-This package provides you with a simple setup to profile your laravel application
+## Introduction
+
+Laravel XHProf provides you with a simple setup to profile your laravel application
 with the well known XHProf php extension originally developed by facebook. 
 It also leads you through the steps to install XHProf UI, a UI to visualize, save and analyze the results
 of the profiling.
