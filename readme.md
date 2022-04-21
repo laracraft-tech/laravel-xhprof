@@ -10,6 +10,10 @@ with the well known XHProf php extension originally developed by facebook.
 It also leads you through the steps to install XHProf UI, a UI to visualize, save and analyze the results
 of the profiling.
 
+<p align="center">
+<img src="https://i.imgur.com/tNBhiPg.png">
+</p>
+
 ## Installation
 
 First you need to install the php extension.
@@ -136,6 +140,9 @@ $ nano public/vendor/xhprof/xhprof_lib/config.php
 Just set ``XHPROF_ENABLED=true`` in your .env file and
 now every request you make to your application gets profiled. \
 Visit ``<your-host>/vendor/xhprof/xhprof_html/`` to see your profiling results.
+
+Happy analysing!
+
 
 <!-- 
 
