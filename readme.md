@@ -17,7 +17,7 @@
 ## Introduction
 
 Laravel XHProf provides you with a simple setup to profile your laravel application
-with the well known XHProf php extension originally developed by facebook. 
+with the well known XHProf PHP extension originally developed by facebook. 
 It also leads you through the steps to install XHProf UI, a UI to visualize, save and analyze the results
 of the profiling.
 
@@ -27,11 +27,13 @@ of the profiling.
 
 ## Installation
 
-First you need to install the php extension.
+First you'll need to install the PHP extension.
 It's highly recommended using ondrejs ppa.
-It's well maintained and provides quite all php versions.
+It's well maintained and provides quite all PHP versions.
 
 ### Normal environment
+
+If you have a normal PHP environment, just install the XHProf extension:
 
 ``` bash
 $ sudo add-apt-repository ppa:ondrej/php
@@ -39,6 +41,7 @@ $ sudo apt-get update
 $ sudo apt-get install php php-xhprof graphviz
 $ # you can now check if the extension was successfully installed
 $ php -i | grep xhprof
+$ // maybe restart your webserver or php-fpm...
 ```
 
 Note: we need graphviz to generate callgraphs.
