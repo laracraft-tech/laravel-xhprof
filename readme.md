@@ -31,7 +31,7 @@ First you need to install the php extension.
 It's highly recommended using ondrejs ppa.
 It's well maintained and provides quite all php versions.
 
-### PHP Extension
+### Normal environment
 
 ``` bash
 $ sudo add-apt-repository ppa:ondrej/php
@@ -43,7 +43,7 @@ $ php -i | grep xhprof
 
 Note: we need graphviz to generate callgraphs.
 
-### Laravel Sail
+### Laravel Sail environment
 
 If you are using laravel sail, here's a setup for you:
 
