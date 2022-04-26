@@ -41,7 +41,7 @@ $ sudo apt-get update
 $ sudo apt-get install php php-xhprof graphviz
 $ # you can now check if the extension was successfully installed
 $ php -i | grep xhprof
-$ // maybe restart your webserver or php-fpm...
+$ # maybe restart your webserver or php-fpm...
 ```
 
 Note: we need graphviz to generate callgraphs.
