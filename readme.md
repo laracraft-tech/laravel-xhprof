@@ -88,11 +88,11 @@ $ echo "/public/vendor" >> .gitignore
 Since the database table name,
 which the UI package is using behind to store and read data from the database,
 is hard coded to ``details`` and you already may have a table named like that,
-you may need to make some additional steps. If not, here first the simple way:
+you may need to make some additional steps. If not, here at first the simple way:
 
 <br/>
 
-#### In case you DON'T HAVE an own ``details`` table in your database:
+#### In case you DON'T already HAVE an own ``details`` table in your database:
 
 ``` bash
 $ php artisan vendor:publish --provider="Sairahcaz\LaravelXhprof\XHProfServiceProvider" --tag="migrations"
@@ -100,7 +100,7 @@ $ php artisan migrate
 ```
 <br/>
 
-#### In case you HAVE an own ``details`` table in your database:
+#### In case you already HAVE an own ``details`` table in your database:
 
 I recommend to just use a different database. 
 
