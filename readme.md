@@ -145,7 +145,7 @@ Now let's configure some settings!
 $ cp public/vendor/xhprof/xhprof_lib/config.sample.php public/vendor/xhprof/xhprof_lib/config.php
 $ # 1. change the db credentials to your needs
 $ # 2. enable dot_binary section
-$ # 3. if your local set $controlIPs to false
+$ # 3. if you're local, set $controlIPs to false
 $ nano public/vendor/xhprof/xhprof_lib/config.php
 ```
 
