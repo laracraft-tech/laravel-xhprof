@@ -1,7 +1,7 @@
 <p align="center"><img src="https://i.imgur.com/nsWZks5.png" alt="Logo Laravel XHProf"></p>
 
 <p align="center">
-<a href="https://packagist.org/packages/sairahcaz/laravel-xhprof"><img src="https://img.shields.io/packagist/dt/sairahcaz/laravel-xhprof" alt="Total Downloads"></a>
+<!--<a href="https://packagist.org/packages/sairahcaz/laravel-xhprof"><img src="https://img.shields.io/packagist/dt/sairahcaz/laravel-xhprof" alt="Total Downloads"></a>-->
 <a href="https://packagist.org/packages/sairahcaz/laravel-xhprof"><img src="https://img.shields.io/packagist/v/sairahcaz/laravel-xhprof" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/sairahcaz/laravel-xhprof"><img src="https://img.shields.io/packagist/l/sairahcaz/laravel-xhprof" alt="License"></a>
 </p>
