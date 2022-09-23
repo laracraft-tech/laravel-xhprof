@@ -1,6 +1,6 @@
 <?php
 
-namespace Sairahcaz\LaravelXhprof\Middleware;
+namespace LaracraftTech\LaravelXhprof\Middleware;
 
 use Closure;
 use Exception;

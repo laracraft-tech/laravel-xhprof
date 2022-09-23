@@ -1,10 +1,10 @@
 <?php
 
-namespace Sairahcaz\LaravelXhprof;
+namespace LaracraftTech\LaravelXhprof;
 
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\ServiceProvider;
-use Sairahcaz\LaravelXhprof\Middleware\XHProfMiddleware;
+use LaracraftTech\LaravelXhprof\Middleware\XHProfMiddleware;
 
 class XHProfServiceProvider extends ServiceProvider
 {
@@ -32,13 +32,13 @@ class XHProfServiceProvider extends ServiceProvider
     protected function bootForConsole()
     {
         // Publishing the configuration file.
-        //php artisan vendor:publish --provider="Sairahcaz\LaravelXhprof\XHProfServiceProvider" --tag="config"
+        //php artisan vendor:publish --provider="LaracraftTech\LaravelXhprof\XHProfServiceProvider" --tag="config"
         $this->publishes([
             __DIR__ . '/../config/config.php' => config_path('xhprof.php'),
         ], 'config');
 
         // Publishing the migrations.
-        //php artisan vendor:publish --provider="Sairahcaz\LaravelXhprof\XHProfServiceProvider" --tag="migrations"
+        //php artisan vendor:publish --provider="LaracraftTech\LaravelXhprof\XHProfServiceProvider" --tag="migrations"
         if (! class_exists('CreateXHProfTable')) {
             $this->publishes([
                 __DIR__ . '/../database/migrations/create_xhprof_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_xhprof_table.php'),
