@@ -1,9 +1,9 @@
 <p align="center"><img src="https://i.imgur.com/nsWZks5.png" alt="Logo Laravel XHProf"></p>
 
 <p align="center">
-<!--<a href="https://packagist.org/packages/sairahcaz/laravel-xhprof"><img src="https://img.shields.io/packagist/dt/sairahcaz/laravel-xhprof" alt="Total Downloads"></a>-->
-<a href="https://packagist.org/packages/sairahcaz/laravel-xhprof"><img src="https://img.shields.io/packagist/v/sairahcaz/laravel-xhprof" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/sairahcaz/laravel-xhprof"><img src="https://img.shields.io/packagist/l/sairahcaz/laravel-xhprof" alt="License"></a>
+<!--<a href="https://packagist.org/packages/laracraft-tech/laravel-xhprof"><img src="https://img.shields.io/packagist/dt/laracraft-tech/laravel-xhprof" alt="Total Downloads"></a>-->
+<a href="https://packagist.org/packages/laracraft-tech/laravel-xhprof"><img src="https://img.shields.io/packagist/v/laracraft-tech/laravel-xhprof" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laracraft-tech/laravel-xhprof"><img src="https://img.shields.io/packagist/l/laracraft-tech/laravel-xhprof" alt="License"></a>
 </p>
 
 <!--
@@ -68,8 +68,8 @@ Note: The provided Laravel Sail Dockerfile already uses ondrejs ppa.
 ### Install the Package
 
 ``` bash
-$ composer require sairahcaz/laravel-xhprof --dev
-$ php artisan vendor:publish --provider="Sairahcaz\LaravelXhprof\XHProfServiceProvider" --tag="config"
+$ composer require laracraft-tech/laravel-xhprof --dev
+$ php artisan vendor:publish --provider="LaracraftTech\LaravelXhprof\XHProfServiceProvider" --tag="config"
 ```
 
 ### Install the UI
@@ -95,7 +95,7 @@ you may need to make some additional steps. If not, here at first the simple way
 #### In case you DON'T already HAVE an own ``details`` table in your database:
 
 ``` bash
-$ php artisan vendor:publish --provider="Sairahcaz\LaravelXhprof\XHProfServiceProvider" --tag="migrations"
+$ php artisan vendor:publish --provider="LaracraftTech\LaravelXhprof\XHProfServiceProvider" --tag="migrations"
 $ php artisan migrate
 ```
 <br/>
@@ -185,14 +185,14 @@ If you discover any security related issues, please email zacharias.creutznacher
 
 MIT. Please see the [license file](license.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/sairahcaz/laravel-xhprof.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/sairahcaz/laravel-xhprof.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/sairahcaz/laravel-xhprof/master.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/laracraft-tech/laravel-xhprof.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/laracraft-tech/laravel-xhprof.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/laracraft-tech/laravel-xhprof/master.svg?style=flat-square
 [ico-styleci]: https://styleci.io/repos/12345678/shield
 
-[link-packagist]: https://packagist.org/packages/sairahcaz/laravel-xhprof
-[link-downloads]: https://packagist.org/packages/sairahcaz/laravel-xhprof
-[link-travis]: https://travis-ci.org/sairahcaz/laravel-xhprof
+[link-packagist]: https://packagist.org/packages/laracraft-tech/laravel-xhprof
+[link-downloads]: https://packagist.org/packages/laracraft-tech/laravel-xhprof
+[link-travis]: https://travis-ci.org/laracraft-tech/laravel-xhprof
 [link-styleci]: https://styleci.io/repos/12345678
-[link-author]: https://github.com/sairahcaz
+[link-author]: https://github.com/laracraft-tech
 [link-contributors]: ../../contributors
