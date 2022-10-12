@@ -28,7 +28,7 @@ class XHProfMiddleware
 
             //if profiler is enabled in config, don't wait for ?_profile=1 get parameter (which sets the cookie)
             //to start profiling, just enable it immediately
-            setcookie('_profile', 1);
+            $_COOKIE['_profile'] = 1;
 
             require_once public_path(). '/vendor/xhprof/external/header.php';
         }
