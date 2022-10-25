@@ -18,7 +18,7 @@ class CreateXHProfTable extends Migration
             $table->char('id', 64);
             $table->char('url', 255)->nullable();
             $table->char('c_url', 255)->nullable();
-            $table->timestamp('timestamp')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+            $table->timestamp('timestamp')->useCurrent()->useCurrentOnUpdate();
             $table->char('server name', 64)->nullable();
             $table->binary('perfdata')->nullable();
             $table->tinyInteger('type')->nullable();
