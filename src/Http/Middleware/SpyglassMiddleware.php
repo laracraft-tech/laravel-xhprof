@@ -1,6 +1,6 @@
 <?php
 
-namespace LaracraftTech\LaravelSpyglass\Middleware;
+namespace LaracraftTech\LaravelSpyglass\Http\Middleware;
 
 use Closure;
 use Exception;
@@ -20,7 +20,7 @@ class SpyglassMiddleware
     {
         if (config('spyglass.enabled')) {
             if (!extension_loaded('xhprof')) {
-                throw new Exception('Spyglass is enabled but extension is not installed or disabled! Please install or enable xhprof extension!');
+                throw new Exception('Spyglass is enabled but xhprof extension is not installed or disabled! Please install or enable xhprof extension!');
             }
 
             //this needs to be declared as global!

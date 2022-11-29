@@ -4,8 +4,35 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSpyglassTable extends Migration
+return new class extends Migration
 {
+    /**
+     * The database schema.
+     *
+     * @var \Illuminate\Database\Schema\Builder
+     */
+    protected $schema;
+
+    /**
+     * Create a new migration instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->schema = Schema::connection($this->getConnection());
+    }
+
+    /**
+     * Get the migration connection name.
+     *
+     * @return string|null
+     */
+    public function getConnection()
+    {
+        return config('spyglass.storage.database.connection');
+    }
+
     /**
      * Run the migrations.
      *
@@ -13,7 +40,7 @@ class CreateSpyglassTable extends Migration
      */
     public function up()
     {
-        Schema::create('spyglass', function (Blueprint $table) {
+        $this->schema->create('spyglass_entries', function (Blueprint $table) {
             $table->id('idcount');
             $table->char('id', 64);
             $table->char('url', 255)->nullable();
@@ -54,6 +81,6 @@ class CreateSpyglassTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('details');
+        $this->schema->dropIfExists('spyglass_entries');
     }
 };

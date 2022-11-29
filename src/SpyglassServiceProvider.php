@@ -3,8 +3,9 @@
 namespace LaracraftTech\LaravelSpyglass;
 
 use Illuminate\Contracts\Http\Kernel;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use LaracraftTech\LaravelSpyglass\Middleware\SpyglassMiddleware;
+use LaracraftTech\LaravelSpyglass\Http\Middleware\SpyglassMiddleware;
 
 class SpyglassServiceProvider extends ServiceProvider
 {
@@ -15,35 +16,107 @@ class SpyglassServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Publishing is only necessary when using the CLI.
-        if ($this->app->runningInConsole()) {
-            $this->bootForConsole();
+        $this->registerPublishing();
+
+        if (! config('spyglass.enabled')) {
+            return;
         }
 
+        Route::middlewareGroup('spyglass', config('spyglass.middleware', []));
+
+        $this->registerRoutes();
+        $this->registerMigrations();
+
         $kernel = $this->app[Kernel::class];
-        $kernel->pushMiddleware(SpyglassMiddleware::class);
+        $kernel->prependMiddleware(SpyglassMiddleware::class);
     }
 
     /**
-     * Console-specific booting.
+     * Register the package routes.
      *
      * @return void
      */
-    protected function bootForConsole()
+    private function registerRoutes()
     {
-        // Publishing the configuration file.
-        //php artisan vendor:publish --provider="LaracraftTech\LaravelSpyglass\SpyglassServiceProvider" --tag="config"
-        $this->publishes([
-            __DIR__ . '/../config/config.php' => config_path('spyglass.php'),
-        ], 'config');
+        Route::group($this->routeConfiguration(), function () {
+            $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
+        });
+    }
 
-        // Publishing the migrations.
-        //php artisan vendor:publish --provider="LaracraftTech\LaravelSpyglass\SpyglassServiceProvider" --tag="migrations"
-        if (! class_exists('CreateSpyglassTable')) {
-            $this->publishes([
-                __DIR__ . '/../database/migrations/create_spyglass_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_spyglass_table.php'),
-                // you can add any number of migrations here
-            ], 'migrations');
+    /**
+     * Get the Telescope route group configuration array.
+     *
+     * @return array
+     */
+    private function routeConfiguration()
+    {
+        return [
+            'domain' => config('spyglass.domain', null),
+            'namespace' => 'LaracraftTech\LaravelSpyglass\Http\Controllers',
+            'prefix' => config('spyglass.path'),
+            'middleware' => 'spyglass',
+        ];
+    }
+
+    /**
+     * Register the package's migrations.
+     *
+     * @return void
+     */
+    private function registerMigrations()
+    {
+        if ($this->app->runningInConsole() && $this->shouldMigrate()) {
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         }
+    }
+
+    /**
+     * Register the package's publishable resources.
+     *
+     * @return void
+     */
+    private function registerPublishing()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../database/migrations' => database_path('migrations'),
+            ], 'spyglass-migrations');
+
+//            $this->publishes([
+//                __DIR__.'/../public' => public_path('vendor/spyglass'),
+//            ], ['spyglass-assets', 'laravel-assets']);
+
+            $this->publishes([
+                __DIR__.'/../config/spyglass.php' => config_path('spyglass.php'),
+            ], 'spyglass-config');
+
+//            $this->publishes([
+//                __DIR__.'/../stubs/SpyglassServiceProvider.stub' => app_path('Providers/SpyglassServiceProvider.php'),
+//            ], 'spyglass-provider');
+        }
+    }
+
+    /**
+     * Register any package services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/spyglass.php', 'spyglass'
+        );
+
+//        $this->registerStorageDriver();
+    }
+
+    /**
+     * Determine if we should register the migrations.
+     *
+     * @return bool
+     */
+    protected function shouldMigrate()
+    {
+        return Spyglass::$runsMigrations && config('spyglass.driver') === 'database';
     }
 }
