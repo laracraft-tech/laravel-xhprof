@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'enabled' => env('XHPROF_ENABLED', false),
+    'enabled' => env('SPYGLASS_ENABLED', false),
 ];

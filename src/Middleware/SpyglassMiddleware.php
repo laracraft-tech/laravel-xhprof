@@ -1,12 +1,12 @@
 <?php
 
-namespace LaracraftTech\LaravelXhprof\Middleware;
+namespace LaracraftTech\LaravelSpyglass\Middleware;
 
 use Closure;
 use Exception;
 use Illuminate\Http\Request;
 
-class XHProfMiddleware
+class SpyglassMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,9 +18,9 @@ class XHProfMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (config('xhprof.enabled')) {
+        if (config('spyglass.enabled')) {
             if (!extension_loaded('xhprof')) {
-                throw new Exception('xhprof is enabled but extension is not installed or disabled! Please install or enable xhprof extension!');
+                throw new Exception('Spyglass is enabled but extension is not installed or disabled! Please install or enable xhprof extension!');
             }
 
             //this needs to be declared as global!

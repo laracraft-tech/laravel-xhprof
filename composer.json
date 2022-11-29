@@ -1,5 +1,5 @@
 {
-    "name": "laracraft-tech/laravel-xhprof",
+    "name": "laracraft-tech/laravel-spyglass",
     "description": "Easy XHProf setup to profile your laravel application!",
     "license": "MIT",
     "authors": [
@@ -9,7 +9,7 @@
             "homepage": "https://laracraft.tech"
         }
     ],
-    "homepage": "https://github.com/laracraft-tech/laravel-xhprof",
+    "homepage": "https://github.com/laracraft-tech/laravel-spyglass",
     "keywords": ["laravel", "xhprof", "profiling", "profiler", "profile", "php"],
     "require": {
         "php": ">=7.1",
@@ -21,18 +21,18 @@
     },
     "autoload": {
         "psr-4": {
-            "LaracraftTech\\LaravelXhprof\\": "src/"
+            "LaracraftTech\\LaravelSpyglass\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "LaracraftTech\\LaravelXhprof\\Tests\\": "tests"
+            "LaracraftTech\\LaravelSpyglass\\Tests\\": "tests"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "LaracraftTech\\LaravelXhprof\\XHProfServiceProvider"
+                "LaracraftTech\\LaravelSpyglass\\SpyglassServiceProvider"
             ]
         }
     },

@@ -1,12 +1,12 @@
 <?php
 
-namespace LaracraftTech\LaravelXhprof;
+namespace LaracraftTech\LaravelSpyglass;
 
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\ServiceProvider;
-use LaracraftTech\LaravelXhprof\Middleware\XHProfMiddleware;
+use LaracraftTech\LaravelSpyglass\Middleware\SpyglassMiddleware;
 
-class XHProfServiceProvider extends ServiceProvider
+class SpyglassServiceProvider extends ServiceProvider
 {
     /**
      * Perform post-registration booting of services.
@@ -21,7 +21,7 @@ class XHProfServiceProvider extends ServiceProvider
         }
 
         $kernel = $this->app[Kernel::class];
-        $kernel->pushMiddleware(XHProfMiddleware::class);
+        $kernel->pushMiddleware(SpyglassMiddleware::class);
     }
 
     /**
@@ -32,16 +32,16 @@ class XHProfServiceProvider extends ServiceProvider
     protected function bootForConsole()
     {
         // Publishing the configuration file.
-        //php artisan vendor:publish --provider="LaracraftTech\LaravelXhprof\XHProfServiceProvider" --tag="config"
+        //php artisan vendor:publish --provider="LaracraftTech\LaravelSpyglass\SpyglassServiceProvider" --tag="config"
         $this->publishes([
-            __DIR__ . '/../config/config.php' => config_path('xhprof.php'),
+            __DIR__ . '/../config/config.php' => config_path('spyglass.php'),
         ], 'config');
 
         // Publishing the migrations.
-        //php artisan vendor:publish --provider="LaracraftTech\LaravelXhprof\XHProfServiceProvider" --tag="migrations"
-        if (! class_exists('CreateXHProfTable')) {
+        //php artisan vendor:publish --provider="LaracraftTech\LaravelSpyglass\SpyglassServiceProvider" --tag="migrations"
+        if (! class_exists('CreateSpyglassTable')) {
             $this->publishes([
-                __DIR__ . '/../database/migrations/create_xhprof_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_xhprof_table.php'),
+                __DIR__ . '/../database/migrations/create_spyglass_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_spyglass_table.php'),
                 // you can add any number of migrations here
             ], 'migrations');
         }
