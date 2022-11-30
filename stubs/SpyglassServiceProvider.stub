@@ -3,11 +3,11 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
-use Laravel\Telescope\IncomingEntry;
-use Laravel\Telescope\Telescope;
-use Laravel\Telescope\TelescopeApplicationServiceProvider;
+//use Laravel\Spyglass\IncomingEntry;
+use LaracraftTech\LaravelSpyglass\Spyglass;
+use LaracraftTech\LaravelSpyglass\SpyglassApplicationServiceProvider;
 
-class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
+class SpyglassServiceProvider extends SpyglassApplicationServiceProvider
 {
     /**
      * Register any application services.
@@ -16,11 +16,11 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
      */
     public function register()
     {
-        // Telescope::night();
+        // Spyglass::night();
 
         $this->hideSensitiveRequestDetails();
-
-        Telescope::filter(function (IncomingEntry $entry) {
+        /*
+        Spyglass::filter(function (IncomingEntry $entry) {
             if ($this->app->environment('local')) {
                 return true;
             }
@@ -31,10 +31,11 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
                    $entry->isScheduledTask() ||
                    $entry->hasMonitoredTag();
         });
+        */
     }
 
     /**
-     * Prevent sensitive request details from being logged by Telescope.
+     * Prevent sensitive request details from being logged by Spyglass.
      *
      * @return void
      */
@@ -44,9 +45,9 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
             return;
         }
 
-        Telescope::hideRequestParameters(['_token']);
+        Spyglass::hideRequestParameters(['_token']);
 
-        Telescope::hideRequestHeaders([
+        Spyglass::hideRequestHeaders([
             'cookie',
             'x-csrf-token',
             'x-xsrf-token',
@@ -54,15 +55,15 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
     }
 
     /**
-     * Register the Telescope gate.
+     * Register the Spyglass gate.
      *
-     * This gate determines who can access Telescope in non-local environments.
+     * This gate determines who can access Spyglass in non-local environments.
      *
      * @return void
      */
     protected function gate()
     {
-        Gate::define('viewTelescope', function ($user) {
+        Gate::define('viewSpyglass', function ($user) {
             return in_array($user->email, [
                 //
             ]);

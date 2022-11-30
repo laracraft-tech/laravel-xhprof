@@ -16,6 +16,7 @@ class SpyglassServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->registerCommands();
         $this->registerPublishing();
 
         if (! config('spyglass.enabled')) {
@@ -27,8 +28,12 @@ class SpyglassServiceProvider extends ServiceProvider
         $this->registerRoutes();
         $this->registerMigrations();
 
-        $kernel = $this->app[Kernel::class];
-        $kernel->prependMiddleware(SpyglassMiddleware::class);
+//        $kernel = $this->app[Kernel::class];
+//        $kernel->prependMiddleware(SpyglassMiddleware::class);
+
+        $this->loadViewsFrom(
+            __DIR__.'/../resources/views', 'spyglass'
+        );
     }
 
     /**
@@ -44,7 +49,7 @@ class SpyglassServiceProvider extends ServiceProvider
     }
 
     /**
-     * Get the Telescope route group configuration array.
+     * Get the Spyglass route group configuration array.
      *
      * @return array
      */
@@ -82,17 +87,36 @@ class SpyglassServiceProvider extends ServiceProvider
                 __DIR__.'/../database/migrations' => database_path('migrations'),
             ], 'spyglass-migrations');
 
-//            $this->publishes([
-//                __DIR__.'/../public' => public_path('vendor/spyglass'),
-//            ], ['spyglass-assets', 'laravel-assets']);
+            $this->publishes([
+                __DIR__.'/../public' => public_path('vendor/spyglass'),
+            ], ['spyglass-assets', 'laravel-assets']);
 
             $this->publishes([
                 __DIR__.'/../config/spyglass.php' => config_path('spyglass.php'),
             ], 'spyglass-config');
 
-//            $this->publishes([
-//                __DIR__.'/../stubs/SpyglassServiceProvider.stub' => app_path('Providers/SpyglassServiceProvider.php'),
-//            ], 'spyglass-provider');
+            $this->publishes([
+                __DIR__.'/../stubs/SpyglassServiceProvider.stub' => app_path('Providers/SpyglassServiceProvider.php'),
+            ], 'spyglass-provider');
+        }
+    }
+
+    /**
+     * Register the package's commands.
+     *
+     * @return void
+     */
+    protected function registerCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                Console\ClearCommand::class,
+                Console\InstallCommand::class,
+                Console\PauseCommand::class,
+                Console\PruneCommand::class,
+                Console\PublishCommand::class,
+                Console\ResumeCommand::class,
+            ]);
         }
     }
 
