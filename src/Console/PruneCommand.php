@@ -3,7 +3,7 @@
 namespace LaracraftTech\LaravelSpyglass\Console;
 
 use Illuminate\Console\Command;
-use Laravel\Spyglass\Contracts\PrunableRepository;
+use LaracraftTech\LaravelSpyglass\Contracts\PrunableRepository;
 
 class PruneCommand extends Command
 {
@@ -24,7 +24,7 @@ class PruneCommand extends Command
     /**
      * Execute the console command.
      *
-     * @param  \Laravel\Spyglass\Contracts\PrunableRepository  $repository
+     * @param  \LaracraftTech\LaravelSpyglass\Contracts\PrunableRepository  $repository
      * @return void
      */
     public function handle(PrunableRepository $repository)

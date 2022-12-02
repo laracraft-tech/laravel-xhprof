@@ -1,5 +1,3 @@
-const FOOO = 123;
-
 export default [
     { path: '/', redirect: '/requests' },
 

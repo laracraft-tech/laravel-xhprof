@@ -2,6 +2,8 @@
 
 namespace LaracraftTech\LaravelSpyglass;
 
+use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use JsonSerializable;
 
 class EntryResult implements JsonSerializable
@@ -28,6 +30,34 @@ class EntryResult implements JsonSerializable
     public $content = [];
 
     /**
+     * The entry's profiling data.
+     *
+     * @var array
+     */
+    public $profData = [];
+
+    /**
+     * The Peak Memory Usage sum.
+     *
+     * @var array
+     */
+    public $pmu = 0;
+
+    /**
+     * The Wall Time sum.
+     *
+     * @var array
+     */
+    public $wt = 0;
+
+    /**
+     * The CPU sum.
+     *
+     * @var array
+     */
+    public $cpu = 0;
+
+    /**
      * The datetime that the entry was recorded.
      *
      * @var \Carbon\CarbonInterface|\Carbon\Carbon
@@ -51,18 +81,26 @@ class EntryResult implements JsonSerializable
     /**
      * Create a new entry result instance.
      *
-     * @param  mixed  $id
-     * @param  string  $type
-     * @param  array  $content
-     * @param  \Carbon\CarbonInterface|\Carbon\Carbon  $createdAt
-     * @param  array  $tags
+     * @param mixed $id
+     * @param string $type
+     * @param array $content
+     * @param array $profData
+     * @param int $pmu
+     * @param int $wt
+     * @param int $cpu
+     * @param CarbonInterface|Carbon $createdAt
+     * @param array $tags
      */
-    public function __construct($id, string $type, array $content, $createdAt, $tags = [])
+    public function __construct($id, string $type, array $content, array $profData, int $pmu, int $wt, int $cpu, $createdAt, $tags = [])
     {
         $this->id = $id;
         $this->type = $type;
         $this->tags = $tags;
         $this->content = $content;
+        $this->profData = $profData;
+        $this->pmu = $pmu;
+        $this->wt = $wt;
+        $this->cpu = $cpu;
         $this->createdAt = $createdAt;
     }
 
@@ -90,6 +128,10 @@ class EntryResult implements JsonSerializable
             'id' => $this->id,
             'type' => $this->type,
             'content' => $this->content,
+            'profData' => $this->profData,
+            'pmu' => $this->pmu,
+            'wt' => $this->wt,
+            'cpu' => $this->cpu,
             'tags' => $this->tags,
             'created_at' => $this->createdAt->toDateTimeString(),
         ])->when($this->avatar, function ($items) {

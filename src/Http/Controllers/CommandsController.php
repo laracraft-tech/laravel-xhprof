@@ -1,9 +1,9 @@
 <?php
 
-namespace Laravel\Spyglass\Http\Controllers;
+namespace LaracraftTech\LaravelSpyglass\Http\Controllers;
 
-use Laravel\Spyglass\EntryType;
-use Laravel\Spyglass\Watchers\CommandWatcher;
+use LaracraftTech\LaravelSpyglass\EntryType;
+use LaracraftTech\LaravelSpyglass\Watchers\CommandWatcher;
 
 class CommandsController extends EntryController
 {

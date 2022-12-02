@@ -2,8 +2,8 @@
 
 namespace LaracraftTech\LaravelSpyglass\Http\Controllers;
 
-use Laravel\Spyglass\EntryType;
-use Laravel\Spyglass\Watchers\RequestWatcher;
+use LaracraftTech\LaravelSpyglass\EntryType;
+use LaracraftTech\LaravelSpyglass\Watchers\RequestWatcher;
 
 class RequestsController extends EntryController
 {

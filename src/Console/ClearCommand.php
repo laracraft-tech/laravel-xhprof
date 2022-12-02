@@ -3,7 +3,7 @@
 namespace LaracraftTech\LaravelSpyglass\Console;
 
 use Illuminate\Console\Command;
-use Laravel\Spyglass\Contracts\ClearableRepository;
+use LaracraftTech\LaravelSpyglass\Contracts\ClearableRepository;
 
 class ClearCommand extends Command
 {
@@ -24,7 +24,7 @@ class ClearCommand extends Command
     /**
      * Execute the console command.
      *
-     * @param  \Laravel\Spyglass\Contracts\ClearableRepository  $storage
+     * @param  \LaracraftTech\LaravelSpyglass\Contracts\ClearableRepository  $storage
      * @return void
      */
     public function handle(ClearableRepository $storage)

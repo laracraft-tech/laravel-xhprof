@@ -1,11 +1,11 @@
 <?php
 
-namespace Laravel\Spyglass\Http\Controllers;
+namespace LaracraftTech\LaravelSpyglass\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Laravel\Spyglass\Contracts\EntriesRepository;
-use Laravel\Spyglass\Storage\EntryQueryOptions;
+use LaracraftTech\LaravelSpyglass\Contracts\EntriesRepository;
+use LaracraftTech\LaravelSpyglass\Storage\EntryQueryOptions;
 
 abstract class EntryController extends Controller
 {
@@ -27,7 +27,7 @@ abstract class EntryController extends Controller
      * List the entries of the given type.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Laravel\Spyglass\Contracts\EntriesRepository  $storage
+     * @param  \LaracraftTech\LaravelSpyglass\Contracts\EntriesRepository  $storage
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request, EntriesRepository $storage)
@@ -44,7 +44,7 @@ abstract class EntryController extends Controller
     /**
      * Get an entry with the given ID.
      *
-     * @param  \Laravel\Spyglass\Contracts\EntriesRepository  $storage
+     * @param  \LaracraftTech\LaravelSpyglass\Contracts\EntriesRepository  $storage
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */

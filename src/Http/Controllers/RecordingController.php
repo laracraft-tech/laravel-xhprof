@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Spyglass\Http\Controllers;
+namespace LaracraftTech\LaravelSpyglass\Http\Controllers;
 
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Routing\Controller;

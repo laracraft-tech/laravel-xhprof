@@ -2,6 +2,7 @@
 
 namespace LaracraftTech\LaravelSpyglass\Storage;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use LaracraftTech\LaravelSpyglass\Database\Factories\EntryModelFactory;
@@ -139,5 +140,25 @@ class EntryModel extends Model
     public static function newFactory()
     {
         return EntryModelFactory::new();
+    }
+
+    /**
+     * Get the profiling data.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function profData(): Attribute
+    {
+        return Attribute::make(
+            get: function($value) {
+                $profData = gzuncompress($value);
+
+                $profData = (config('spyglass.serializer') === 'json')
+                    ? json_decode($profData, true)
+                    : unserialize($profData) ;
+
+                return $profData;
+            },
+        );
     }
 }

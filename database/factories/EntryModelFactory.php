@@ -32,6 +32,10 @@ class EntryModelFactory extends Factory
                 EntryType::SCHEDULED_TASK,
             ]),
             'content' => [$this->faker->word => $this->faker->word],
+            'prof_data' => "foo",
+            'pmu' => $this->faker->randomNumber(),
+            'wt' => $this->faker->randomNumber(),
+            'cpu' => $this->faker->randomNumber(),
         ];
     }
 }

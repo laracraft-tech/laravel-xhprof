@@ -10,8 +10,6 @@ use LaracraftTech\LaravelSpyglass\Contracts\EntriesRepository as Contract;
 use LaracraftTech\LaravelSpyglass\Contracts\PrunableRepository;
 use LaracraftTech\LaravelSpyglass\Contracts\TerminableRepository;
 use LaracraftTech\LaravelSpyglass\EntryResult;
-use LaracraftTech\LaravelSpyglass\EntryType;
-use LaracraftTech\LaravelSpyglass\IncomingEntry;
 
 class DatabaseEntriesRepository implements Contract, ClearableRepository, PrunableRepository, TerminableRepository
 {
@@ -69,11 +67,12 @@ class DatabaseEntriesRepository implements Contract, ClearableRepository, Prunab
 
         return new EntryResult(
             $entry->uuid,
-            null,
-            $entry->batch_id,
             $entry->type,
-            $entry->family_hash,
             $entry->content,
+            $entry->prof_data,
+            $entry->pmu,
+            $entry->wt,
+            $entry->cpu,
             $entry->created_at,
             $tags
         );
@@ -91,35 +90,22 @@ class DatabaseEntriesRepository implements Contract, ClearableRepository, Prunab
         return EntryModel::on($this->connection)
             ->withSpyglassOptions($type, $options)
             ->take($options->limit)
-            ->orderByDesc('sequence')
+            ->orderByDesc('created_at')
             ->get()->reject(function ($entry) {
                 return ! is_array($entry->content);
             })->map(function ($entry) {
                 return new EntryResult(
                     $entry->uuid,
-                    $entry->sequence,
-                    $entry->batch_id,
                     $entry->type,
-                    $entry->family_hash,
                     $entry->content,
+                    $entry->prof_data,
+                    $entry->pmu,
+                    $entry->wt,
+                    $entry->cpu,
                     $entry->created_at,
                     []
                 );
             })->values();
-    }
-
-    /**
-     * Counts the occurences of an exception.
-     *
-     * @param  \LaracraftTech\LaravelSpyglass\IncomingEntry  $exception
-     * @return int
-     */
-    protected function countExceptionOccurences(IncomingEntry $exception)
-    {
-        return $this->table('spyglass_entries')
-                    ->where('type', EntryType::EXCEPTION)
-                    ->where('family_hash', $exception->familyHash())
-                    ->count();
     }
 
     /**

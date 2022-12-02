@@ -68,7 +68,7 @@ class IncomingEntry
      *
      * @var array
      */
-    public $cpu = [];
+    public $cpu = 0;
 
     /**
      * The DateTime that indicates when the entry was recorded.
