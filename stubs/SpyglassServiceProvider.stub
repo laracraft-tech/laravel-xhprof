@@ -25,11 +25,8 @@ class SpyglassServiceProvider extends SpyglassApplicationServiceProvider
                 return true;
             }
 
-            //$entry->isReportableException() ||
-
-            return $entry->isFailedRequest() ||
-                   $entry->isFailedJob() ||
-                   $entry->isScheduledTask();
+            return $entry->isSlow() ||
+                   $entry->hasMonitoredTag();
         });
     }
 

@@ -64,6 +64,23 @@ return new class extends Migration
         if(DB::connection()->getDriverName() === 'mysql') {
             DB::statement('ALTER TABLE spyglass_entries MODIFY COLUMN `prof_data` LONGBLOB');
         }
+
+        $this->schema->create('spyglass_entries_tags', function (Blueprint $table) {
+            $table->uuid('entry_uuid');
+            $table->string('tag');
+
+            $table->index(['entry_uuid', 'tag']);
+            $table->index('tag');
+
+            $table->foreign('entry_uuid')
+                ->references('uuid')
+                ->on('spyglass_entries')
+                ->onDelete('cascade');
+        });
+
+        $this->schema->create('spyglass_monitoring', function (Blueprint $table) {
+            $table->string('tag');
+        });
     }
 
     /**

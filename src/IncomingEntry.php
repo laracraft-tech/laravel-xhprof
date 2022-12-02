@@ -36,6 +36,13 @@ class IncomingEntry
     public $content = [];
 
     /**
+     * The entry's tags.
+     *
+     * @var array
+     */
+    public $tags = [];
+
+    /**
      * The entry's profiling data.
      *
      * @var array
@@ -83,13 +90,20 @@ class IncomingEntry
 
         $this->recordedAt = now();
 
-        $this->content = array_merge($content, ['hostname' => gethostname()]);
-
         $this->profData = $profData;
 
         $this->pmu = $this->profData['main()']['pmu'] ?? 0;
         $this->wt = $this->profData['main()']['wt'] ?? 0;
         $this->cpu = $this->profData['main()']['cpu'] ?? 0;
+
+        $this->content = array_merge(
+            $content,
+            ['hostname' => gethostname()]
+        );
+
+        if (!isset($this->content['slow'])) {
+            $this->content['slow'] = isset($this->options['slow']) && $this->wt >= $this->options['slow'];
+        }
     }
 
     /**
@@ -134,7 +148,36 @@ class IncomingEntry
             ],
         ]);
 
+        $this->tags(['Auth:'.$user->getAuthIdentifier()]);
+
         return $this;
+    }
+
+    /**
+     * Merge tags into the entry's existing tags.
+     *
+     * @param  array  $tags
+     * @return $this
+     */
+    public function tags(array $tags)
+    {
+        $this->tags = array_unique(array_merge($this->tags, $tags));
+
+        return $this;
+    }
+
+    /**
+     * Determine if the incoming entry has a monitored tag.
+     *
+     * @return bool
+     */
+    public function hasMonitoredTag()
+    {
+        if (! empty($this->tags)) {
+            return app(EntriesRepository::class)->isMonitoring($this->tags);
+        }
+
+        return false;
     }
 
     /**
@@ -177,6 +220,16 @@ class IncomingEntry
     public function isScheduledTask()
     {
         return $this->type === EntryType::SCHEDULED_TASK;
+    }
+
+    /**
+     * Determine if the incoming entry is a slow.
+     *
+     * @return bool
+     */
+    public function isSlow()
+    {
+        return ($this->content['slow'] ?? false);
     }
 
     /**

@@ -26,6 +26,13 @@ class EntryUpdate
     public $changes = [];
 
     /**
+     * The changes to be applied on the tags.
+     *
+     * @var array
+     */
+    public $tagsChanges = ['removed' => [], 'added' => []];
+
+    /**
      * Create a new incoming entry instance.
      *
      * @param  string  $uuid
@@ -60,6 +67,36 @@ class EntryUpdate
     public function change(array $changes)
     {
         $this->changes = array_merge($this->changes, $changes);
+
+        return $this;
+    }
+
+    /**
+     * Add tags to the entry.
+     *
+     * @param  array  $tags
+     * @return $this
+     */
+    public function addTags(array $tags)
+    {
+        $this->tagsChanges['added'] = array_unique(
+            array_merge($this->tagsChanges['added'], $tags)
+        );
+
+        return $this;
+    }
+
+    /**
+     * Remove tags from the entry.
+     *
+     * @param  array  $tags
+     * @return $this
+     */
+    public function removeTags(array $tags)
+    {
+        $this->tagsChanges['removed'] = array_unique(
+            array_merge($this->tagsChanges['removed'], $tags)
+        );
 
         return $this;
     }

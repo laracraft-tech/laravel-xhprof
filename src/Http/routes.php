@@ -14,6 +14,12 @@ Route::get('/spyglass-api/commands/{spyglassEntryId}', 'CommandsController@show'
 Route::post('/spyglass-api/schedule', 'ScheduleController@index');
 Route::get('/spyglass-api/schedule/{spyglassEntryId}', 'ScheduleController@show');
 
+// Monitored Tags...
+Route::get('/spyglass-api/monitored-tags', 'MonitoredTagController@index');
+Route::post('/spyglass-api/monitored-tags/', 'MonitoredTagController@store');
+Route::post('/spyglass-api/monitored-tags/delete', 'MonitoredTagController@destroy');
+
+
 // Toggle Recording...
 Route::post('/spyglass-api/toggle-recording', 'RecordingController@toggle');
 

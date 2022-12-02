@@ -43,6 +43,13 @@ class Spyglass
     public static $afterStoringHooks = [];
 
     /**
+     * The callbacks that add tags to the record.
+     *
+     * @var \Closure[]
+     */
+    public static $tagUsing = [];
+
+    /**
      * The list of queued entries to be stored.
      *
      * @var array
@@ -296,7 +303,9 @@ class Spyglass
             // Do nothing.
         }
 
-        $entry->type($type);
+        $entry->type($type)->tags(Arr::collapse(array_map(function ($tagCallback) use ($entry) {
+            return $tagCallback($entry);
+        }, static::$tagUsing)));
 
         static::withoutRecording(function () use ($entry) {
             if (collect(static::$filterUsing)->every->__invoke($entry)) {
@@ -419,6 +428,19 @@ class Spyglass
     public static function afterStoring(Closure $callback)
     {
         static::$afterStoringHooks[] = $callback;
+
+        return new static;
+    }
+
+    /**
+     * Add a callback that adds tags to the record.
+     *
+     * @param  \Closure  $callback
+     * @return static
+     */
+    public static function tag(Closure $callback)
+    {
+        static::$tagUsing[] = $callback;
 
         return new static;
     }

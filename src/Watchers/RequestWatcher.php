@@ -64,8 +64,6 @@ class RequestWatcher extends Watcher
             'session' => $this->payload($this->sessionVariables($event->request)),
             'response_status' => $event->response->getStatusCode(),
             'response' => $this->response($event->response),
-            'duration' => $startTime ? floor((microtime(true) - $startTime) * 1000) : null,
-            'memory' => round(memory_get_peak_usage(true) / 1024 / 1024, 1),
         ], $this->xhprof->getData()));
     }
 

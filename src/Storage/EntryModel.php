@@ -64,7 +64,9 @@ class EntryModel extends Model
      */
     public function scopeWithSpyglassOptions($query, $type, EntryQueryOptions $options)
     {
-        $this->whereType($query, $type)->filter($query, $options);
+        $this->whereType($query, $type)
+            ->whereTag($query, $options)
+            ->filter($query, $options);
 
         return $query;
     }
@@ -80,6 +82,24 @@ class EntryModel extends Model
     {
         $query->when($type, function ($query, $type) {
             return $query->where('type', $type);
+        });
+
+        return $this;
+    }
+
+    /**
+     * Scope the query for the given type.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  \LaracraftTech\LaravelSpyglass\Storage\EntryQueryOptions  $options
+     * @return $this
+     */
+    protected function whereTag($query, EntryQueryOptions $options)
+    {
+        $query->when($options->tag, function ($query, $tag) {
+            return $query->whereIn('uuid', function ($query) use ($tag) {
+                $query->select('entry_uuid')->from('spyglass_entries_tags')->whereTag($tag);
+            });
         });
 
         return $this;
