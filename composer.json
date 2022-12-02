@@ -12,8 +12,10 @@
     "homepage": "https://github.com/laracraft-tech/laravel-spyglass",
     "keywords": ["laravel", "xhprof", "profiling", "profiler", "profile", "php"],
     "require": {
-        "php": ">=7.1",
-        "laravel/framework": "^5.3|^6.0|^7.0|^8.0|^9.0"
+        "php": "^7.3|^8.0",
+        "ext-json": "*",
+        "laravel/framework": "^8.37|^9.0",
+        "symfony/var-dumper": "^5.0|^6.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~9.0",

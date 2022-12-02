@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
-//use Laravel\Spyglass\IncomingEntry;
+use LaracraftTech\LaravelSpyglass\IncomingEntry;
 use LaracraftTech\LaravelSpyglass\Spyglass;
 use LaracraftTech\LaravelSpyglass\SpyglassApplicationServiceProvider;
 
@@ -19,19 +19,18 @@ class SpyglassServiceProvider extends SpyglassApplicationServiceProvider
         // Spyglass::night();
 
         $this->hideSensitiveRequestDetails();
-        /*
+
         Spyglass::filter(function (IncomingEntry $entry) {
             if ($this->app->environment('local')) {
                 return true;
             }
 
-            return $entry->isReportableException() ||
-                   $entry->isFailedRequest() ||
+            //$entry->isReportableException() ||
+
+            return $entry->isFailedRequest() ||
                    $entry->isFailedJob() ||
-                   $entry->isScheduledTask() ||
-                   $entry->hasMonitoredTag();
+                   $entry->isScheduledTask();
         });
-        */
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 use LaracraftTech\LaravelSpyglass\Http\Middleware\Authorize;
+use LaracraftTech\LaravelSpyglass\Watchers;
 
 return [
 
@@ -84,8 +85,8 @@ return [
     | Allowed / Ignored Paths & Commands
     |--------------------------------------------------------------------------
     |
-    | The following array lists the URI paths and Artisan commands that will
-    | not be profiled by Spyglass. In addition to this list, some Laravel
+    | The following array lists the URI paths, Artisan commands or functions that
+    | will not be profiled by Spyglass. In addition to this list, some Laravel
     | commands, like migrations and queue commands, are always ignored.
     |
     */
@@ -95,10 +96,84 @@ return [
     ],
 
     'ignore_paths' => [
-//        'nova-api*',
+        'nova-api*',
     ],
 
     'ignore_commands' => [
         //
+    ],
+
+    'ignore_functions' => [
+        //
+    ],
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Spyglass PHP Extension Name
+    |--------------------------------------------------------------------------
+    |
+    | Currently supported: xhprof, tideways, tideways_xhprof
+    | Be sure the extension is installed on your server and enable!
+    |
+    */
+    'extension_name' => env('SPYGLASS_PHP_EXTENSION', 'xhprof'),
+
+    'extension_flags' => [
+        'cpu',
+        'memory',
+        //'no_builtins', by default builtins are enabled,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Spyglass Serializer (MySQL/MySQLi/PDO ONLY)
+    |--------------------------------------------------------------------------
+    |
+    | Switch to "json" for better performance and support for larger profiler data sets.
+    | WARNING: Will break with existing profile data, you will need to TRUNCATE the
+    | profile data table.
+    |
+    */
+    'serializer' => env('SPYGLASS_SERIALIZER', 'php'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Spyglass Compress Level
+    |--------------------------------------------------------------------------
+    |
+    | The value of 2 seems to be light enough that we're not killing the server,
+    | but still gives us lots of breathing room on full production code.
+    |
+    */
+    'compress_level' => env('SPYGLASS_COMP_LEVEL', 2),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Spyglass Watchers
+    |--------------------------------------------------------------------------
+    |
+    | The following array lists the "watchers" that will be registered with
+    | Spyglass. The watchers gather the application's profile data when
+    | a request or task is executed. Feel free to customize this list.
+    |
+    */
+
+    'watchers' => [
+//        Watchers\CommandWatcher::class => [
+//            'enabled' => env('SPYGLASS_COMMAND_WATCHER', true),
+//            'ignore' => [],
+//        ],
+//
+//        Watchers\JobWatcher::class => env('SPYGLASS_JOB_WATCHER', true),
+
+        Watchers\RequestWatcher::class => [
+            'enabled' => env('SPYGLASS_REQUEST_WATCHER', true),
+            'size_limit' => env('SPYGLASS_RESPONSE_SIZE_LIMIT', 64),
+            'ignore_http_methods' => [],
+            'ignore_status_codes' => [],
+        ],
+
+//        Watchers\ScheduleWatcher::class => env('SPYGLASS_SCHEDULE_WATCHER', true),
     ],
 ];

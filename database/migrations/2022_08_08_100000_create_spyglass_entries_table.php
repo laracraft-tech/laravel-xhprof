@@ -41,36 +41,28 @@ return new class extends Migration
     public function up()
     {
         $this->schema->create('spyglass_entries', function (Blueprint $table) {
-            $table->id('idcount');
-            $table->char('id', 64);
-            $table->char('url', 255)->nullable();
-            $table->char('c_url', 255)->nullable();
-            $table->timestamp('timestamp')->useCurrent()->useCurrentOnUpdate();
-            $table->char('server name', 64)->nullable();
-            $table->binary('perfdata')->nullable();
-            $table->tinyInteger('type')->nullable();
-            $table->binary('cookie')->nullable();
-            $table->binary('post')->nullable();
-            $table->binary('get')->nullable();
+            $table->uuid('uuid');
+            $table->string('type', 20);
+            $table->longText('content');
+
+            $table->binary('prof_data')->nullable();
             $table->integer('pmu')->nullable();
             $table->integer('wt')->nullable();
             $table->integer('cpu')->nullable();
-            $table->char('server_id', 64)->nullable();
-            $table->char('aggregateCalls_include', 255)->nullable();
 
-            $table->index('url');
-            $table->index('c_url');
+            $table->dateTime('created_at')->nullable();
+
+//            $table->char('aggregateCalls_include', 255)->nullable();
+
+            $table->unique('uuid');
+            $table->index(['type', 'created_at']);
             $table->index('cpu');
             $table->index('wt');
             $table->index('pmu');
-            $table->index('timestamp');
-            $table->index(['server name', 'timestamp']);
         });
 
         if(DB::connection()->getDriverName() === 'mysql') {
-            DB::statement('ALTER TABLE details MODIFY COLUMN `perfdata` LONGBLOB');
-            DB::statement('ALTER TABLE details MODIFY COLUMN `cookie` LONGBLOB');
-            DB::statement('ALTER TABLE details MODIFY COLUMN `post` LONGBLOB');
+            DB::statement('ALTER TABLE spyglass_entries MODIFY COLUMN `prof_data` LONGBLOB');
         }
     }
 

@@ -5,7 +5,11 @@ namespace LaracraftTech\LaravelSpyglass;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use LaracraftTech\LaravelSpyglass\Http\Middleware\SpyglassMiddleware;
+use LaracraftTech\LaravelSpyglass\Contracts\ClearableRepository;
+use LaracraftTech\LaravelSpyglass\Contracts\EntriesRepository;
+use LaracraftTech\LaravelSpyglass\Contracts\PrunableRepository;
+use LaracraftTech\LaravelSpyglass\Http\Middleware\StartRequest;
+use LaracraftTech\LaravelSpyglass\Storage\DatabaseEntriesRepository;
 
 class SpyglassServiceProvider extends ServiceProvider
 {
@@ -28,8 +32,11 @@ class SpyglassServiceProvider extends ServiceProvider
         $this->registerRoutes();
         $this->registerMigrations();
 
-//        $kernel = $this->app[Kernel::class];
-//        $kernel->prependMiddleware(SpyglassMiddleware::class);
+        $kernel = $this->app[Kernel::class];
+        $kernel->prependMiddleware(StartRequest::class);
+
+        Spyglass::start($this->app);
+        Spyglass::listenForStorageOpportunities($this->app);
 
         $this->loadViewsFrom(
             __DIR__.'/../resources/views', 'spyglass'
@@ -131,7 +138,57 @@ class SpyglassServiceProvider extends ServiceProvider
             __DIR__.'/../config/spyglass.php', 'spyglass'
         );
 
-//        $this->registerStorageDriver();
+        $this->app->bind(XHProf::class, function() {
+            return new XHProf(
+                config('spyglass.extension_name'),
+                config('spyglass.extension_flags'),
+                config('spyglass.ignore_functions'),
+            );
+        });
+
+        $this->registerStorageDriver();
+    }
+
+    /**
+     * Register the package storage driver.
+     *
+     * @return void
+     */
+    protected function registerStorageDriver()
+    {
+        $driver = config('spyglass.driver');
+
+        if (method_exists($this, $method = 'register'.ucfirst($driver).'Driver')) {
+            $this->$method();
+        }
+    }
+
+    /**
+     * Register the package database storage driver.
+     *
+     * @return void
+     */
+    protected function registerDatabaseDriver()
+    {
+        $this->app->singleton(
+            EntriesRepository::class, DatabaseEntriesRepository::class
+        );
+
+        $this->app->singleton(
+            ClearableRepository::class, DatabaseEntriesRepository::class
+        );
+
+        $this->app->singleton(
+            PrunableRepository::class, DatabaseEntriesRepository::class
+        );
+
+        $this->app->when(DatabaseEntriesRepository::class)
+            ->needs('$connection')
+            ->give(config('spyglass.storage.database.connection'));
+
+        $this->app->when(DatabaseEntriesRepository::class)
+            ->needs('$chunkSize')
+            ->give(config('spyglass.storage.database.chunk'));
     }
 
     /**

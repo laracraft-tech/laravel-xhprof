@@ -2,7 +2,7 @@
 
 namespace LaracraftTech\LaravelSpyglass;
 
-trait AuthorizesRequest
+trait AuthorizesRequests
 {
     /**
      * The callback that should be used to authenticate Spyglass users.
