@@ -51,7 +51,7 @@
         <tr>
             <td class="table-fit font-weight-bold">Duration</td>
             <td>
-                {{slotProps.entry.content.duration || '-'}} ms
+                {{slotProps.entry.wt || '-'}} ms
             </td>
         </tr>
 

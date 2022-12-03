@@ -15,6 +15,8 @@
             <th scope="col">Path</th>
             <th scope="col">Status</th>
             <th scope="col">Duration</th>
+            <th scope="col">CPU</th>
+            <th scope="col">PMU</th>
             <th scope="col">Happened</th>
             <th scope="col"></th>
         </tr>
@@ -36,7 +38,17 @@
             </td>
 
             <td class="table-fit">
-                <span v-if="slotProps.entry.content.duration">{{slotProps.entry.content.duration}}ms</span>
+                <span v-if="slotProps.entry.wt">{{slotProps.entry.wt}}ms</span>
+                <span v-else>-</span>
+            </td>
+
+            <td class="table-fit">
+                <span v-if="slotProps.entry.cpu">{{slotProps.entry.cpu}}</span>
+                <span v-else>-</span>
+            </td>
+
+            <td class="table-fit">
+                <span v-if="slotProps.entry.pmu">{{slotProps.entry.pmu}}</span>
                 <span v-else>-</span>
             </td>
 

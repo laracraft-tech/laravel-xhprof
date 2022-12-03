@@ -138,7 +138,7 @@ class EntryResult implements JsonSerializable
             'type' => $this->type,
             'content' => $this->content,
             'pmu' => $this->pmu,
-            'wt' => $this->wt,
+            'wt' => floor($this->wt / 1000),
             'cpu' => $this->cpu,
             'tags' => $this->tags,
             'created_at' => $this->createdAt->toDateTimeString(),
