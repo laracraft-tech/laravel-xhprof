@@ -69,11 +69,11 @@ class DatabaseEntriesRepository implements Contract, ClearableRepository, Prunab
             $entry->uuid,
             $entry->type,
             $entry->content,
-            $entry->prof_data,
             $entry->pmu,
             $entry->wt,
             $entry->cpu,
             $entry->created_at,
+            $entry->prof_data,
             $tags
         );
     }
@@ -91,19 +91,19 @@ class DatabaseEntriesRepository implements Contract, ClearableRepository, Prunab
             ->withSpyglassOptions($type, $options)
             ->take($options->limit)
             ->orderByDesc('created_at')
-            ->get()->reject(function ($entry) {
+            ->exclude($options->exclude)
+            ->get()
+            ->reject(function ($entry) {
                 return ! is_array($entry->content);
             })->map(function ($entry) {
                 return new EntryResult(
                     $entry->uuid,
                     $entry->type,
                     $entry->content,
-                    $entry->prof_data,
                     $entry->pmu,
                     $entry->wt,
                     $entry->cpu,
                     $entry->created_at,
-                    []
                 );
             })->values();
     }

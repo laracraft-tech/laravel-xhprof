@@ -84,15 +84,24 @@ class EntryResult implements JsonSerializable
      * @param mixed $id
      * @param string $type
      * @param array $content
-     * @param array $profData
      * @param int $pmu
      * @param int $wt
      * @param int $cpu
-     * @param CarbonInterface|Carbon $createdAt
+     * @param CarbonInterface $createdAt
+     * @param array $profData
      * @param array $tags
      */
-    public function __construct($id, string $type, array $content, array $profData, int $pmu, int $wt, int $cpu, $createdAt, $tags = [])
-    {
+    public function __construct(
+        $id,
+        string $type,
+        array $content,
+        int $pmu,
+        int $wt,
+        int $cpu,
+        CarbonInterface $createdAt,
+        array $profData = [],
+        array $tags = []
+    ) {
         $this->id = $id;
         $this->type = $type;
         $this->tags = $tags;
@@ -124,17 +133,22 @@ class EntryResult implements JsonSerializable
     #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
-        return collect([
+        $data = [
             'id' => $this->id,
             'type' => $this->type,
             'content' => $this->content,
-            'profData' => $this->profData,
             'pmu' => $this->pmu,
             'wt' => $this->wt,
             'cpu' => $this->cpu,
             'tags' => $this->tags,
             'created_at' => $this->createdAt->toDateTimeString(),
-        ])->when($this->avatar, function ($items) {
+        ];
+
+        if (!empty($this->profData)) {
+            $data['profData'] = $this->profData;
+        }
+
+        return collect($data)->when($this->avatar, function ($items) {
             return $items->mergeRecursive([
                 'content' => [
                     'user' => [

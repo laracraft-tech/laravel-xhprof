@@ -35,7 +35,7 @@ abstract class EntryController extends Controller
         return response()->json([
             'entries' => $storage->get(
                 $this->entryType(),
-                EntryQueryOptions::fromRequest($request)
+                EntryQueryOptions::fromRequest($request)->exclude(['prof_data'])
             ),
             'status' => $this->status(),
         ]);
@@ -54,7 +54,7 @@ abstract class EntryController extends Controller
 
         return response()->json([
             'entry' => $entry,
-            'batch' => $storage->get(null, EntryQueryOptions::forBatchId($entry->batchId)->limit(-1)),
+//            'batch' => $storage->get(null, EntryQueryOptions::forBatchId($entry->batchId)->limit(-1)),
         ]);
     }
 

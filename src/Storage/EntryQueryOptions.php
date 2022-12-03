@@ -28,6 +28,13 @@ class EntryQueryOptions
     public $limit = 50;
 
     /**
+     * The entry fields to exclude from the query.
+     *
+     * @var int
+     */
+    public $exclude = [];
+
+    /**
      * Create new entry query options from the incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -39,6 +46,19 @@ class EntryQueryOptions
                 ->uuids($request->uuids)
                 ->tag($request->tag)
                 ->limit($request->take ?? 50);
+    }
+
+    /**
+     * Set the fields to exclude form the query.
+     *
+     * @param string $exclude
+     * @return $this
+     */
+    public function exclude(array $exclude)
+    {
+        $this->exclude = array_merge($this->exclude, $exclude);
+
+        return $this;
     }
 
     /**

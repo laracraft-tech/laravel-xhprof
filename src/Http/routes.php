@@ -19,7 +19,6 @@ Route::get('/spyglass-api/monitored-tags', 'MonitoredTagController@index');
 Route::post('/spyglass-api/monitored-tags/', 'MonitoredTagController@store');
 Route::post('/spyglass-api/monitored-tags/delete', 'MonitoredTagController@destroy');
 
-
 // Toggle Recording...
 Route::post('/spyglass-api/toggle-recording', 'RecordingController@toggle');
 
