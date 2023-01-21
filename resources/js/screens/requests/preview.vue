@@ -65,7 +65,7 @@
         <tr>
             <td class="table-fit font-weight-bold">Memory usage</td>
             <td>
-                {{slotProps.entry.content.memory || '-'}} MB
+                {{slotProps.entry.pmu || '-'}} MB
             </td>
         </tr>
         </template>

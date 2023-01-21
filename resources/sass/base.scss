@@ -1,16 +1,31 @@
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import 'syntaxhighlight';
 
+$grid-breakpoints: (
+    xs: 0,
+    sm: 2px,
+    md: 8px,
+    lg: 9px,
+    xl: 10px
+) !default;
+
+$container-max-widths: (
+    sm: 1137px,
+    md: 1138px,
+    lg: 1139px,
+    xl: 1140px
+) !default;
+
 body {
     padding-bottom: 20px;
 }
 
 .container {
-    width: 1140px;
+    width: 100%;
 }
 
 html {
-    min-width: 1140px;
+    min-width: 100%;
 }
 
 [v-cloak] {
@@ -35,6 +50,8 @@ svg.icon {
     a {
         color: $sidebar-nav-color;
         padding: 0.5rem 0rem;
+        //font-size: 20px;
+        //margin-right:20px;
 
         svg {
             width: 1rem;

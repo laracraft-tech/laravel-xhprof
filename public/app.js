@@ -2538,215 +2538,43 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_entriesStyles__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../mixins/entriesStyles */ "./resources/js/mixins/entriesStyles.js");
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['entry', 'batch'],
+  props: ['entry'],
   mixins: [_mixins_entriesStyles__WEBPACK_IMPORTED_MODULE_0__["default"]],
   /**
    * The component's data.
    */
   data: function data() {
     return {
-      currentTab: 'exceptions'
+      // currentTab: 'exceptions'
     };
   },
   /**
    * Prepare the component.
    */
   mounted: function mounted() {
-    this.activateFirstTab();
+    // this.activateFirstTab();
+    // console.log(this.entry.profData);
   },
-  watch: {
-    entry: function entry() {
-      this.activateFirstTab();
-    }
-  },
+  // watch: {
+  //     entry(){
+  //         this.activateFirstTab();
+  //     }
+  // },
+
   methods: {
-    activateFirstTab: function activateFirstTab() {
-      if (window.location.hash) {
-        this.currentTab = window.location.hash.substring(1);
-      } else if (this.exceptions.length) {
-        this.currentTab = 'exceptions';
-      } else if (this.logs.length) {
-        this.currentTab = 'logs';
-      } else if (this.views.length) {
-        this.currentTab = 'views';
-      } else if (this.queries.length) {
-        this.currentTab = 'queries';
-      } else if (this.models.length) {
-        this.currentTab = 'models';
-      } else if (this.jobs.length) {
-        this.currentTab = 'jobs';
-      } else if (this.mails.length) {
-        this.currentTab = 'mails';
-      } else if (this.notifications.length) {
-        this.currentTab = 'notifications';
-      } else if (this.events.length) {
-        this.currentTab = 'events';
-      } else if (this.cache.length) {
-        this.currentTab = 'cache';
-      } else if (this.gates.length) {
-        this.currentTab = 'gates';
-      } else if (this.redis.length) {
-        this.currentTab = 'redis';
-      } else if (this.clientRequests.length) {
-        this.currentTab = 'client_requests';
-      }
-    },
-    activateTab: function activateTab(tab) {
-      this.currentTab = tab;
-      if (window.history.replaceState) {
-        window.history.replaceState(null, null, '#' + this.currentTab);
-      }
-    }
+    // activateTab(tab){
+    //     this.currentTab = tab;
+    //     if(window.history.replaceState) {
+    //         window.history.replaceState(null, null, '#' + this.currentTab);
+    //     }
+    // }
   },
   computed: {
-    hasRelatedEntries: function hasRelatedEntries() {
-      return !!_.reject(this.batch, function (entry) {
-        return _.includes(['request', 'command'], entry.type);
-      }).length;
-    },
-    entryTypesAvailable: function entryTypesAvailable() {
-      return _.uniqBy(this.batch, 'type').length;
-    },
-    exceptions: function exceptions() {
-      return _.filter(this.batch, {
-        type: 'exception'
-      });
-    },
-    gates: function gates() {
-      return _.filter(this.batch, {
-        type: 'gate'
-      });
-    },
-    logs: function logs() {
-      return _.filter(this.batch, {
-        type: 'log'
-      });
-    },
-    queries: function queries() {
-      return _.filter(this.batch, {
-        type: 'query'
-      });
-    },
-    models: function models() {
-      return _.filter(this.batch, {
-        type: 'model'
-      });
-    },
-    jobs: function jobs() {
-      return _.filter(this.batch, {
-        type: 'job'
-      });
-    },
-    events: function events() {
-      return _.filter(this.batch, {
-        type: 'event'
-      });
-    },
-    cache: function cache() {
-      return _.filter(this.batch, {
-        type: 'cache'
-      });
-    },
-    redis: function redis() {
-      return _.filter(this.batch, {
-        type: 'redis'
-      });
-    },
-    mails: function mails() {
-      return _.filter(this.batch, {
-        type: 'mail'
-      });
-    },
-    notifications: function notifications() {
-      return _.filter(this.batch, {
-        type: 'notification'
-      });
-    },
-    views: function views() {
-      return _.filter(this.batch, {
-        type: 'view'
-      });
-    },
-    clientRequests: function clientRequests() {
-      return _.filter(this.batch, {
-        type: 'client_request'
-      });
-    },
-    queriesSummary: function queriesSummary() {
-      return {
-        time: _.reduce(this.queries, function (time, q) {
-          return time + parseFloat(q.content.time);
-        }, 0.00).toFixed(2),
-        duplicated: this.queries.length - _.size(_.groupBy(this.queries, function (q) {
-          return q.content.hash;
-        }))
-      };
-    },
-    tabs: function tabs() {
-      return _.filter([{
-        title: "Exceptions",
-        type: "exceptions",
-        count: this.exceptions.length
-      }, {
-        title: "Logs",
-        type: "logs",
-        count: this.logs.length
-      }, {
-        title: "Views",
-        type: "views",
-        count: this.views.length
-      }, {
-        title: "Queries",
-        type: "queries",
-        count: this.queries.length
-      }, {
-        title: "Models",
-        type: "models",
-        count: this.models.length
-      }, {
-        title: "Gates",
-        type: "gates",
-        count: this.gates.length
-      }, {
-        title: "Jobs",
-        type: "jobs",
-        count: this.jobs.length
-      }, {
-        title: "Mail",
-        type: "mails",
-        count: this.mails.length
-      }, {
-        title: "Notifications",
-        type: "notifications",
-        count: this.notifications.length
-      }, {
-        title: "Events",
-        type: "events",
-        count: this.events.length
-      }, {
-        title: "Cache",
-        type: "cache",
-        count: this.cache.length
-      }, {
-        title: "Redis",
-        type: "redis",
-        count: this.redis.length
-      }, {
-        title: "HTTP Client",
-        type: "client_requests",
-        count: this.clientRequests.length
-      }], function (tab) {
-        return tab.count > 0;
-      });
-    },
-    separateTabs: function separateTabs() {
-      return _.slice(this.tabs, 0, 7);
-    },
-    dropdownTabs: function dropdownTabs() {
-      return _.slice(this.tabs, 7, 10);
-    },
-    dropdownTabSelected: function dropdownTabSelected() {
-      return _.includes(_.map(this.dropdownTabs, 'type'), this.currentTab);
+    profData: function profData() {
+      //fore testing -> faster rendering...
+      // const slicedArray = Object.entries(this.entry.profData).slice(0, 10);
+      // return Object.fromEntries(slicedArray);
+      return this.entry.profData;
     }
   }
 });
@@ -3450,576 +3278,18 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.hasRelatedEntries ? _c("div", {
+  return _vm.profData ? _c("div", {
     staticClass: "card mt-5"
-  }, [_c("ul", {
-    staticClass: "nav nav-pills"
-  }, [_vm._l(_vm.separateTabs, function (tab) {
-    return _c("li", {
-      staticClass: "nav-item"
-    }, [tab.count ? _c("a", {
-      staticClass: "nav-link",
-      "class": {
-        active: _vm.currentTab == tab.type
-      },
-      attrs: {
-        href: "#"
-      },
-      on: {
-        click: function click($event) {
-          $event.preventDefault();
-          return _vm.activateTab(tab.type);
-        }
-      }
-    }, [_vm._v("\n                " + _vm._s(tab.title) + " (" + _vm._s(tab.count) + ")\n            ")]) : _vm._e()]);
-  }), _vm._v(" "), _vm.dropdownTabs.length ? _c("li", {
-    staticClass: "nav-item dropdown"
-  }, [_c("a", {
-    staticClass: "nav-link dropdown-toggle",
-    "class": {
-      active: _vm.dropdownTabSelected
-    },
-    attrs: {
-      "data-toggle": "dropdown",
-      href: "#",
-      role: "button",
-      "aria-haspopup": "true",
-      "aria-expanded": "false"
-    }
-  }, [_vm._v("More")]), _vm._v(" "), _c("div", {
-    staticClass: "dropdown-menu"
-  }, _vm._l(_vm.dropdownTabs, function (tab) {
-    return _c("a", {
-      staticClass: "dropdown-item",
-      "class": {
-        active: _vm.currentTab == tab.type
-      },
-      attrs: {
-        href: "#"
-      },
-      on: {
-        click: function click($event) {
-          $event.preventDefault();
-          return _vm.activateTab(tab.type);
-        }
-      }
-    }, [_vm._v(_vm._s(tab.title) + " (" + _vm._s(tab.count) + ")")]);
-  }), 0)]) : _vm._e()], 2), _vm._v(" "), _c("div", [_c("table", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.currentTab == "exceptions" && _vm.exceptions.length,
-      expression: "currentTab=='exceptions' && exceptions.length"
-    }],
+  }, [_c("div", [_c("table", {
     staticClass: "table table-hover table-sm mb-0"
-  }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.exceptions, function (entry) {
+  }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.profData, function (data, func) {
     return _c("tr", [_c("td", {
-      attrs: {
-        title: entry.content["class"]
-      }
-    }, [_vm._v("\n                        " + _vm._s(_vm.truncate(entry.content["class"], 70))), _c("br"), _vm._v(" "), _c("small", {
-      staticClass: "text-muted"
-    }, [_vm._v(_vm._s(_vm.truncate(entry.content.message, 100)))])]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_c("router-link", {
-      staticClass: "control-action",
-      attrs: {
-        to: {
-          name: "exception-preview",
-          params: {
-            id: entry.id
-          }
-        }
-      }
-    }, [_c("svg", {
-      attrs: {
-        xmlns: "http://www.w3.org/2000/svg",
-        viewBox: "0 0 22 16"
-      }
-    }, [_c("path", {
-      attrs: {
-        d: "M16.56 13.66a8 8 0 0 1-11.32 0L.3 8.7a1 1 0 0 1 0-1.42l4.95-4.95a8 8 0 0 1 11.32 0l4.95 4.95a1 1 0 0 1 0 1.42l-4.95 4.95-.01.01zm-9.9-1.42a6 6 0 0 0 8.48 0L19.38 8l-4.24-4.24a6 6 0 0 0-8.48 0L2.4 8l4.25 4.24h.01zM10.9 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
-      }
-    })])])], 1)]);
-  }), 0)]), _vm._v(" "), _c("table", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.currentTab == "logs" && _vm.logs.length,
-      expression: "currentTab=='logs' && logs.length"
-    }],
-    staticClass: "table table-hover table-sm mb-0"
-  }, [_vm._m(1), _vm._v(" "), _c("tbody", _vm._l(_vm.logs, function (entry) {
-    return _c("tr", [_c("td", {
-      attrs: {
-        title: entry.content.message
-      }
-    }, [_vm._v(_vm._s(_vm.truncate(entry.content.message, 90)))]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_c("span", {
-      staticClass: "badge font-weight-light",
-      "class": "badge-" + _vm.logLevelClass(entry.content.level)
-    }, [_vm._v("\n                        " + _vm._s(entry.content.level) + "\n                    ")])]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_c("router-link", {
-      staticClass: "control-action",
-      attrs: {
-        to: {
-          name: "log-preview",
-          params: {
-            id: entry.id
-          }
-        }
-      }
-    }, [_c("svg", {
-      attrs: {
-        xmlns: "http://www.w3.org/2000/svg",
-        viewBox: "0 0 22 16"
-      }
-    }, [_c("path", {
-      attrs: {
-        d: "M16.56 13.66a8 8 0 0 1-11.32 0L.3 8.7a1 1 0 0 1 0-1.42l4.95-4.95a8 8 0 0 1 11.32 0l4.95 4.95a1 1 0 0 1 0 1.42l-4.95 4.95-.01.01zm-9.9-1.42a6 6 0 0 0 8.48 0L19.38 8l-4.24-4.24a6 6 0 0 0-8.48 0L2.4 8l4.25 4.24h.01zM10.9 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
-      }
-    })])])], 1)]);
-  }), 0)]), _vm._v(" "), _c("table", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.currentTab == "queries" && _vm.queries.length,
-      expression: "currentTab=='queries' && queries.length"
-    }],
-    staticClass: "table table-hover table-sm mb-0"
-  }, [_c("thead", [_c("tr", [_c("th", [_vm._v("Query"), _c("br"), _c("small", [_vm._v(_vm._s(_vm.queries.length) + " queries, " + _vm._s(_vm.queriesSummary.duplicated) + " of which are duplicated.")])]), _vm._v(" "), _c("th", [_vm._v("Duration"), _c("br"), _c("small", [_vm._v(_vm._s(_vm.queriesSummary.time) + "ms")])]), _vm._v(" "), _c("th")])]), _vm._v(" "), _c("tbody", _vm._l(_vm.queries, function (entry) {
-    return _c("tr", [_c("td", {
-      attrs: {
-        title: entry.content.sql
-      }
-    }, [_vm._v(_vm._s(_vm.truncate(entry.content.sql, 110)))]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [entry.content.slow ? _c("span", {
-      staticClass: "badge badge-danger font-weight-light"
-    }, [_vm._v("\n                        " + _vm._s(entry.content.time) + "ms\n                    ")]) : _c("span", [_vm._v("\n                        " + _vm._s(entry.content.time) + "ms\n                    ")])]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_c("router-link", {
-      staticClass: "control-action",
-      attrs: {
-        to: {
-          name: "query-preview",
-          params: {
-            id: entry.id
-          }
-        }
-      }
-    }, [_c("svg", {
-      attrs: {
-        xmlns: "http://www.w3.org/2000/svg",
-        viewBox: "0 0 22 16"
-      }
-    }, [_c("path", {
-      attrs: {
-        d: "M16.56 13.66a8 8 0 0 1-11.32 0L.3 8.7a1 1 0 0 1 0-1.42l4.95-4.95a8 8 0 0 1 11.32 0l4.95 4.95a1 1 0 0 1 0 1.42l-4.95 4.95-.01.01zm-9.9-1.42a6 6 0 0 0 8.48 0L19.38 8l-4.24-4.24a6 6 0 0 0-8.48 0L2.4 8l4.25 4.24h.01zM10.9 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
-      }
-    })])])], 1)]);
-  }), 0)]), _vm._v(" "), _c("table", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.currentTab == "models" && _vm.models.length,
-      expression: "currentTab=='models' && models.length"
-    }],
-    staticClass: "table table-hover table-sm mb-0"
-  }, [_vm._m(2), _vm._v(" "), _c("tbody", _vm._l(_vm.models, function (entry) {
-    return _c("tr", [_c("td", {
-      attrs: {
-        title: entry.content.model
-      }
-    }, [_vm._v(_vm._s(_vm.truncate(entry.content.model, 100)))]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_c("span", {
-      staticClass: "badge font-weight-light",
-      "class": "badge-" + _vm.modelActionClass(entry.content.action)
-    }, [_vm._v("\n                        " + _vm._s(entry.content.action) + "\n                    ")])]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_c("router-link", {
-      staticClass: "control-action",
-      attrs: {
-        to: {
-          name: "model-preview",
-          params: {
-            id: entry.id
-          }
-        }
-      }
-    }, [_c("svg", {
-      attrs: {
-        xmlns: "http://www.w3.org/2000/svg",
-        viewBox: "0 0 22 16"
-      }
-    }, [_c("path", {
-      attrs: {
-        d: "M16.56 13.66a8 8 0 0 1-11.32 0L.3 8.7a1 1 0 0 1 0-1.42l4.95-4.95a8 8 0 0 1 11.32 0l4.95 4.95a1 1 0 0 1 0 1.42l-4.95 4.95-.01.01zm-9.9-1.42a6 6 0 0 0 8.48 0L19.38 8l-4.24-4.24a6 6 0 0 0-8.48 0L2.4 8l4.25 4.24h.01zM10.9 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
-      }
-    })])])], 1)]);
-  }), 0)]), _vm._v(" "), _c("table", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.currentTab == "gates" && _vm.gates.length,
-      expression: "currentTab=='gates' && gates.length"
-    }],
-    staticClass: "table table-hover table-sm mb-0"
-  }, [_vm._m(3), _vm._v(" "), _c("tbody", _vm._l(_vm.gates, function (entry) {
-    return _c("tr", [_c("td", {
-      attrs: {
-        title: entry.content.ability
-      }
-    }, [_vm._v(_vm._s(_vm.truncate(entry.content.ability, 80)))]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_c("span", {
-      staticClass: "badge font-weight-light",
-      "class": "badge-" + _vm.gateResultClass(entry.content.result)
-    }, [_vm._v("\n                        " + _vm._s(entry.content.result) + "\n                    ")])]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_c("router-link", {
-      staticClass: "control-action",
-      attrs: {
-        to: {
-          name: "gate-preview",
-          params: {
-            id: entry.id
-          }
-        }
-      }
-    }, [_c("svg", {
-      attrs: {
-        xmlns: "http://www.w3.org/2000/svg",
-        viewBox: "0 0 22 16"
-      }
-    }, [_c("path", {
-      attrs: {
-        d: "M16.56 13.66a8 8 0 0 1-11.32 0L.3 8.7a1 1 0 0 1 0-1.42l4.95-4.95a8 8 0 0 1 11.32 0l4.95 4.95a1 1 0 0 1 0 1.42l-4.95 4.95-.01.01zm-9.9-1.42a6 6 0 0 0 8.48 0L19.38 8l-4.24-4.24a6 6 0 0 0-8.48 0L2.4 8l4.25 4.24h.01zM10.9 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
-      }
-    })])])], 1)]);
-  }), 0)]), _vm._v(" "), _c("table", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.currentTab == "jobs" && _vm.jobs.length,
-      expression: "currentTab=='jobs' && jobs.length"
-    }],
-    staticClass: "table table-hover table-sm mb-0"
-  }, [_vm._m(4), _vm._v(" "), _c("tbody", _vm._l(_vm.jobs, function (entry) {
-    return _c("tr", [_c("td", [_c("span", {
-      attrs: {
-        title: entry.content.name
-      }
-    }, [_vm._v(_vm._s(_vm.truncate(entry.content.name, 68)))]), _c("br"), _vm._v(" "), _c("small", {
-      staticClass: "text-muted"
-    }, [_vm._v("\n                        Connection: " + _vm._s(entry.content.connection) + " | Queue: " + _vm._s(entry.content.queue) + "\n                    ")])]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_c("span", {
-      staticClass: "badge font-weight-light",
-      "class": "badge-" + _vm.jobStatusClass(entry.content.status)
-    }, [_vm._v("\n                        " + _vm._s(entry.content.status) + "\n                    ")])]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_c("router-link", {
-      staticClass: "control-action",
-      attrs: {
-        to: {
-          name: "job-preview",
-          params: {
-            id: entry.id
-          }
-        }
-      }
-    }, [_c("svg", {
-      attrs: {
-        xmlns: "http://www.w3.org/2000/svg",
-        viewBox: "0 0 22 16"
-      }
-    }, [_c("path", {
-      attrs: {
-        d: "M16.56 13.66a8 8 0 0 1-11.32 0L.3 8.7a1 1 0 0 1 0-1.42l4.95-4.95a8 8 0 0 1 11.32 0l4.95 4.95a1 1 0 0 1 0 1.42l-4.95 4.95-.01.01zm-9.9-1.42a6 6 0 0 0 8.48 0L19.38 8l-4.24-4.24a6 6 0 0 0-8.48 0L2.4 8l4.25 4.24h.01zM10.9 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
-      }
-    })])])], 1)]);
-  }), 0)]), _vm._v(" "), _c("table", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.currentTab == "events" && _vm.events.length,
-      expression: "currentTab=='events' && events.length"
-    }],
-    staticClass: "table table-hover table-sm mb-0"
-  }, [_vm._m(5), _vm._v(" "), _c("tbody", _vm._l(_vm.events, function (entry) {
-    return _c("tr", [_c("td", {
-      attrs: {
-        title: entry.content.name
-      }
-    }, [_vm._v("\n                    " + _vm._s(_vm.truncate(entry.content.name, 80)) + "\n\n                    "), entry.content.broadcast ? _c("span", {
-      staticClass: "badge badge-info font-weight-light ml-2"
-    }, [_vm._v("\n                        Broadcast\n                    ")]) : _vm._e()]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_vm._v(_vm._s(entry.content.listeners.length))]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_c("router-link", {
-      staticClass: "control-action",
-      attrs: {
-        to: {
-          name: "event-preview",
-          params: {
-            id: entry.id
-          }
-        }
-      }
-    }, [_c("svg", {
-      attrs: {
-        xmlns: "http://www.w3.org/2000/svg",
-        viewBox: "0 0 22 16"
-      }
-    }, [_c("path", {
-      attrs: {
-        d: "M16.56 13.66a8 8 0 0 1-11.32 0L.3 8.7a1 1 0 0 1 0-1.42l4.95-4.95a8 8 0 0 1 11.32 0l4.95 4.95a1 1 0 0 1 0 1.42l-4.95 4.95-.01.01zm-9.9-1.42a6 6 0 0 0 8.48 0L19.38 8l-4.24-4.24a6 6 0 0 0-8.48 0L2.4 8l4.25 4.24h.01zM10.9 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
-      }
-    })])])], 1)]);
-  }), 0)]), _vm._v(" "), _c("table", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.currentTab == "cache" && _vm.cache.length,
-      expression: "currentTab=='cache' && cache.length"
-    }],
-    staticClass: "table table-hover table-sm mb-0"
-  }, [_vm._m(6), _vm._v(" "), _c("tbody", _vm._l(_vm.cache, function (entry) {
-    return _c("tr", [_c("td", {
-      attrs: {
-        title: entry.content.key
-      }
-    }, [_vm._v(_vm._s(_vm.truncate(entry.content.key, 100)))]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_c("span", {
-      staticClass: "badge font-weight-light",
-      "class": "badge-" + _vm.cacheActionTypeClass(entry.content.type)
-    }, [_vm._v("\n                        " + _vm._s(entry.content.type) + "\n                    ")])]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_c("router-link", {
-      staticClass: "control-action",
-      attrs: {
-        to: {
-          name: "cache-preview",
-          params: {
-            id: entry.id
-          }
-        }
-      }
-    }, [_c("svg", {
-      attrs: {
-        xmlns: "http://www.w3.org/2000/svg",
-        viewBox: "0 0 22 16"
-      }
-    }, [_c("path", {
-      attrs: {
-        d: "M16.56 13.66a8 8 0 0 1-11.32 0L.3 8.7a1 1 0 0 1 0-1.42l4.95-4.95a8 8 0 0 1 11.32 0l4.95 4.95a1 1 0 0 1 0 1.42l-4.95 4.95-.01.01zm-9.9-1.42a6 6 0 0 0 8.48 0L19.38 8l-4.24-4.24a6 6 0 0 0-8.48 0L2.4 8l4.25 4.24h.01zM10.9 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
-      }
-    })])])], 1)]);
-  }), 0)]), _vm._v(" "), _c("table", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.currentTab == "redis" && _vm.redis.length,
-      expression: "currentTab=='redis' && redis.length"
-    }],
-    staticClass: "table table-hover table-sm mb-0"
-  }, [_vm._m(7), _vm._v(" "), _c("tbody", _vm._l(_vm.redis, function (entry) {
-    return _c("tr", [_c("td", {
-      attrs: {
-        title: entry.content.command
-      }
-    }, [_vm._v(_vm._s(_vm.truncate(entry.content.command, 100)))]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_vm._v(_vm._s(entry.content.time) + "ms")]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_c("router-link", {
-      staticClass: "control-action",
-      attrs: {
-        to: {
-          name: "redis-preview",
-          params: {
-            id: entry.id
-          }
-        }
-      }
-    }, [_c("svg", {
-      attrs: {
-        xmlns: "http://www.w3.org/2000/svg",
-        viewBox: "0 0 22 16"
-      }
-    }, [_c("path", {
-      attrs: {
-        d: "M16.56 13.66a8 8 0 0 1-11.32 0L.3 8.7a1 1 0 0 1 0-1.42l4.95-4.95a8 8 0 0 1 11.32 0l4.95 4.95a1 1 0 0 1 0 1.42l-4.95 4.95-.01.01zm-9.9-1.42a6 6 0 0 0 8.48 0L19.38 8l-4.24-4.24a6 6 0 0 0-8.48 0L2.4 8l4.25 4.24h.01zM10.9 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
-      }
-    })])])], 1)]);
-  }), 0)]), _vm._v(" "), _c("table", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.currentTab == "mails" && _vm.mails.length,
-      expression: "currentTab=='mails' && mails.length"
-    }],
-    staticClass: "table table-hover table-sm mb-0"
-  }, [_vm._m(8), _vm._v(" "), _c("tbody", _vm._l(_vm.mails, function (entry) {
-    return _c("tr", [_c("td", [_c("span", {
-      attrs: {
-        title: entry.content.mailable
-      }
-    }, [_vm._v(_vm._s(_vm.truncate(entry.content.mailable || "-", 70)))]), _vm._v(" "), entry.content.queued ? _c("span", {
-      staticClass: "badge badge-secondary font-weight-light ml-2"
-    }, [_vm._v("\n                        Queued\n                    ")]) : _vm._e(), _vm._v(" "), _c("br"), _vm._v(" "), _c("small", {
-      staticClass: "text-muted",
-      attrs: {
-        title: entry.content.subject
-      }
-    }, [_vm._v("\n                        Subject: " + _vm._s(_vm.truncate(entry.content.subject, 90)) + "\n                    ")])]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_c("router-link", {
-      staticClass: "control-action",
-      attrs: {
-        to: {
-          name: "mail-preview",
-          params: {
-            id: entry.id
-          }
-        }
-      }
-    }, [_c("svg", {
-      attrs: {
-        xmlns: "http://www.w3.org/2000/svg",
-        viewBox: "0 0 22 16"
-      }
-    }, [_c("path", {
-      attrs: {
-        d: "M16.56 13.66a8 8 0 0 1-11.32 0L.3 8.7a1 1 0 0 1 0-1.42l4.95-4.95a8 8 0 0 1 11.32 0l4.95 4.95a1 1 0 0 1 0 1.42l-4.95 4.95-.01.01zm-9.9-1.42a6 6 0 0 0 8.48 0L19.38 8l-4.24-4.24a6 6 0 0 0-8.48 0L2.4 8l4.25 4.24h.01zM10.9 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
-      }
-    })])])], 1)]);
-  }), 0)]), _vm._v(" "), _c("table", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.currentTab == "notifications" && _vm.notifications.length,
-      expression: "currentTab=='notifications' && notifications.length"
-    }],
-    staticClass: "table table-hover table-sm mb-0"
-  }, [_vm._m(9), _vm._v(" "), _c("tbody", _vm._l(_vm.notifications, function (entry) {
-    return _c("tr", [_c("td", [_c("span", {
-      attrs: {
-        title: entry.content.notification
-      }
-    }, [_vm._v(_vm._s(_vm.truncate(entry.content.notification || "-", 70)))]), _vm._v(" "), entry.content.queued ? _c("span", {
-      staticClass: "badge badge-secondary font-weight-light ml-2"
-    }, [_vm._v("\n                        Queued\n                    ")]) : _vm._e(), _vm._v(" "), _c("br"), _vm._v(" "), _c("small", {
-      staticClass: "text-muted",
-      attrs: {
-        title: entry.content.notifiable
-      }
-    }, [_vm._v("\n                        Recipient: " + _vm._s(_vm.truncate(entry.content.notifiable, 90)) + "\n                    ")])]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_vm._v(_vm._s(_vm.truncate(entry.content.channel, 20)))]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_c("router-link", {
-      staticClass: "control-action",
-      attrs: {
-        to: {
-          name: "notification-preview",
-          params: {
-            id: entry.id
-          }
-        }
-      }
-    }, [_c("svg", {
-      attrs: {
-        xmlns: "http://www.w3.org/2000/svg",
-        viewBox: "0 0 22 16"
-      }
-    }, [_c("path", {
-      attrs: {
-        d: "M16.56 13.66a8 8 0 0 1-11.32 0L.3 8.7a1 1 0 0 1 0-1.42l4.95-4.95a8 8 0 0 1 11.32 0l4.95 4.95a1 1 0 0 1 0 1.42l-4.95 4.95-.01.01zm-9.9-1.42a6 6 0 0 0 8.48 0L19.38 8l-4.24-4.24a6 6 0 0 0-8.48 0L2.4 8l4.25 4.24h.01zM10.9 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
-      }
-    })])])], 1)]);
-  }), 0)]), _vm._v(" "), _c("table", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.currentTab == "views" && _vm.views.length,
-      expression: "currentTab=='views' && views.length"
-    }],
-    staticClass: "table table-hover table-sm mb-0"
-  }, [_vm._m(10), _vm._v(" "), _c("tbody", _vm._l(_vm.views, function (entry) {
-    return _c("tr", [_c("td", [_vm._v("\n                    " + _vm._s(entry.content.name) + " "), _c("br"), _vm._v(" "), _c("small", {
-      staticClass: "text-muted"
-    }, [_vm._v(_vm._s(_vm.truncate(entry.content.path, 100)))])]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_vm._v("\n                    " + _vm._s(entry.content.composers ? entry.content.composers.length : 0) + "\n                ")]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_c("router-link", {
-      staticClass: "control-action",
-      attrs: {
-        to: {
-          name: "view-preview",
-          params: {
-            id: entry.id
-          }
-        }
-      }
-    }, [_c("svg", {
-      attrs: {
-        xmlns: "http://www.w3.org/2000/svg",
-        viewBox: "0 0 22 16"
-      }
-    }, [_c("path", {
-      attrs: {
-        d: "M16.56 13.66a8 8 0 0 1-11.32 0L.3 8.7a1 1 0 0 1 0-1.42l4.95-4.95a8 8 0 0 1 11.32 0l4.95 4.95a1 1 0 0 1 0 1.42l-4.95 4.95-.01.01zm-9.9-1.42a6 6 0 0 0 8.48 0L19.38 8l-4.24-4.24a6 6 0 0 0-8.48 0L2.4 8l4.25 4.24h.01zM10.9 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
-      }
-    })])])], 1)]);
-  }), 0)]), _vm._v(" "), _c("table", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.currentTab == "client_requests" && _vm.clientRequests.length,
-      expression: "currentTab=='client_requests' && clientRequests.length"
-    }],
-    staticClass: "table table-hover table-sm mb-0"
-  }, [_vm._m(11), _vm._v(" "), _c("tbody", _vm._l(_vm.clientRequests, function (entry) {
-    return _c("tr", [_c("td", {
-      staticClass: "table-fit pr-0"
-    }, [_c("span", {
-      staticClass: "badge font-weight-light",
-      "class": "badge-" + _vm.requestMethodClass(entry.content.method)
-    }, [_vm._v("\n                        " + _vm._s(entry.content.method) + "\n                    ")])]), _vm._v(" "), _c("td", {
-      attrs: {
-        title: entry.content.uri
-      }
-    }, [_vm._v(_vm._s(_vm.truncate(entry.content.uri, 60)))]), _vm._v(" "), _c("td", {
-      staticClass: "table-fit"
-    }, [_c("span", {
-      staticClass: "badge font-weight-light",
-      "class": "badge-" + _vm.requestStatusClass(entry.content.response_status !== undefined ? entry.content.response_status : null)
-    }, [_vm._v("\n                        " + _vm._s(entry.content.response_status !== undefined ? entry.content.response_status : "N/A") + "\n                    ")])]), _vm._v(" "), _c("td", {
       staticClass: "table-fit",
       attrs: {
-        "data-timeago": entry.created_at,
-        title: entry.created_at
+        title: func
       }
-    }, [_vm._v("\n                    " + _vm._s(_vm.timeAgo(entry.created_at)) + "\n                ")]), _vm._v(" "), _c("td", {
+    }, [_vm._v(_vm._s(_vm.truncate(func, 50)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.ct))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.wt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.cpu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.mu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.pmu))]), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td", {
       staticClass: "table-fit"
-    }, [_c("router-link", {
-      staticClass: "control-action",
-      attrs: {
-        to: {
-          name: "client-request-preview",
-          params: {
-            id: entry.id
-          }
-        }
-      }
     }, [_c("svg", {
       attrs: {
         xmlns: "http://www.w3.org/2000/svg",
@@ -4029,65 +3299,13 @@ var render = function render() {
       attrs: {
         d: "M16.56 13.66a8 8 0 0 1-11.32 0L.3 8.7a1 1 0 0 1 0-1.42l4.95-4.95a8 8 0 0 1 11.32 0l4.95 4.95a1 1 0 0 1 0 1.42l-4.95 4.95-.01.01zm-9.9-1.42a6 6 0 0 0 8.48 0L19.38 8l-4.24-4.24a6 6 0 0 0-8.48 0L2.4 8l4.25 4.24h.01zM10.9 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
       }
-    })])])], 1)]);
+    })])])]);
   }), 0)])])]) : _vm._e();
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("Message")]), _vm._v(" "), _c("th")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("Message")]), _vm._v(" "), _c("th", {
-    attrs: {
-      scope: "col"
-    }
-  }, [_vm._v("Level")]), _vm._v(" "), _c("th")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("Model")]), _vm._v(" "), _c("th", [_vm._v("Action")]), _vm._v(" "), _c("th")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("Ability")]), _vm._v(" "), _c("th", [_vm._v("Result")]), _vm._v(" "), _c("th")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("Job")]), _vm._v(" "), _c("th", {
-    attrs: {
-      scope: "col"
-    }
-  }, [_vm._v("Status")]), _vm._v(" "), _c("th")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("Name")]), _vm._v(" "), _c("th", [_vm._v("Listeners")]), _vm._v(" "), _c("th")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("Key")]), _vm._v(" "), _c("th", [_vm._v("Action")]), _vm._v(" "), _c("th")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("Command")]), _vm._v(" "), _c("th", [_vm._v("Duration")]), _vm._v(" "), _c("th")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("Mailable")]), _vm._v(" "), _c("th")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("Notification")]), _vm._v(" "), _c("th", [_vm._v("Channel")]), _vm._v(" "), _c("th")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("Name")]), _vm._v(" "), _c("th", [_vm._v("Composers")]), _vm._v(" "), _c("th")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("Verb")]), _vm._v(" "), _c("th", [_vm._v("URI")]), _vm._v(" "), _c("th", [_vm._v("Status")]), _vm._v(" "), _c("th", [_vm._v("Happened")]), _vm._v(" "), _c("th")])]);
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("Function")]), _vm._v(" "), _c("th", [_vm._v("Call Count")]), _vm._v(" "), _c("th", [_vm._v("Wall Time")]), _vm._v(" "), _c("th", [_vm._v("CPU")]), _vm._v(" "), _c("th", [_vm._v("Memory Usage")]), _vm._v(" "), _c("th", [_vm._v("Peak Memory Usage")]), _vm._v(" "), _c("th", [_vm._v("Exclusive Wall Time")]), _vm._v(" "), _c("th", [_vm._v("Exclusive CPU")]), _vm._v(" "), _c("th", [_vm._v("Exclusive Memory Usage")]), _vm._v(" "), _c("th", [_vm._v("Exclusive Peak Memory Usage")]), _vm._v(" "), _c("th")])]);
 }];
 render._withStripped = true;
 
@@ -4787,11 +4005,11 @@ var render = function render() {
           staticClass: "badge font-weight-light",
           "class": "badge-" + _vm.requestStatusClass(slotProps.entry.content.response_status)
         }, [_vm._v("\n                " + _vm._s(slotProps.entry.content.response_status) + "\n            ")])]), _vm._v(" "), _c("td", {
-          staticClass: "table-fit"
+          staticClass: "table-fit text-right"
         }, [slotProps.entry.wt ? _c("span", [_vm._v(_vm._s(slotProps.entry.wt) + "ms")]) : _c("span", [_vm._v("-")])]), _vm._v(" "), _c("td", {
-          staticClass: "table-fit"
+          staticClass: "table-fit text-right"
         }, [slotProps.entry.cpu ? _c("span", [_vm._v(_vm._s(slotProps.entry.cpu))]) : _c("span", [_vm._v("-")])]), _vm._v(" "), _c("td", {
-          staticClass: "table-fit"
+          staticClass: "table-fit text-right"
         }, [slotProps.entry.pmu ? _c("span", [_vm._v(_vm._s(slotProps.entry.pmu))]) : _c("span", [_vm._v("-")])]), _vm._v(" "), _c("td", {
           staticClass: "table-fit",
           attrs: {
@@ -4908,7 +4126,7 @@ var render = function render() {
           staticClass: "table-fit font-weight-bold"
         }, [_vm._v("IP Address")]), _vm._v(" "), _c("td", [_vm._v("\n            " + _vm._s(slotProps.entry.content.ip_address || "-") + "\n        ")])]), _vm._v(" "), _c("tr", [_c("td", {
           staticClass: "table-fit font-weight-bold"
-        }, [_vm._v("Memory usage")]), _vm._v(" "), _c("td", [_vm._v("\n            " + _vm._s(slotProps.entry.content.memory || "-") + " MB\n        ")])])];
+        }, [_vm._v("Memory usage")]), _vm._v(" "), _c("td", [_vm._v("\n            " + _vm._s(slotProps.entry.pmu || "-") + " MB\n        ")])])];
       }
     }, {
       key: "after-attributes-card",

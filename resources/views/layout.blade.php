@@ -24,7 +24,7 @@
            :confirmation-cancel="alert.confirmationCancel"
            v-if="alert.type"></alert>
 
-    <div class="container mb-5">
+    <div class="container-fluid mb-5">
         <div class="d-flex align-items-center py-4 header">
             <img width="27" height="27" src="{{ asset('/vendor/spyglass/icon.png') }}" />
 
@@ -61,7 +61,7 @@
         </div>
 
         <div class="row mt-4">
-            <div class="col-2 sidebar">
+            <div class="col-1 sidebar">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <router-link active-class="active" to="/requests" class="nav-link d-flex align-items-center pt-0">
@@ -98,7 +98,7 @@
                 </ul>
             </div>
 
-            <div class="col-10">
+            <div class="col-11">
                 <router-view></router-view>
             </div>
         </div>

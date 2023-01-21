@@ -37,17 +37,17 @@
                 </span>
             </td>
 
-            <td class="table-fit">
+            <td class="table-fit text-right">
                 <span v-if="slotProps.entry.wt">{{slotProps.entry.wt}}ms</span>
                 <span v-else>-</span>
             </td>
 
-            <td class="table-fit">
+            <td class="table-fit text-right">
                 <span v-if="slotProps.entry.cpu">{{slotProps.entry.cpu}}</span>
                 <span v-else>-</span>
             </td>
 
-            <td class="table-fit">
+            <td class="table-fit text-right">
                 <span v-if="slotProps.entry.pmu">{{slotProps.entry.pmu}}</span>
                 <span v-else>-</span>
             </td>
