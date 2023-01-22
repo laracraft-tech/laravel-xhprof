@@ -18,7 +18,7 @@
 
 Laravel XHProf provides you with a simple setup to profile your laravel application
 with the well known XHProf PHP extension originally developed by facebook. 
-It also leads you through the steps to install XHProf UI, a UI to visualize, save and analyze the results
+It also leads you through the steps to install XHProf UI, a UI to visualize, store and analyze the results
 of the profiling.
 
 <p align="center">
