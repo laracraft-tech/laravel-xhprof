@@ -49,7 +49,7 @@
         </tr>
 
         <tr>
-            <td class="table-fit font-weight-bold">Duration</td>
+            <td class="table-fit font-weight-bold">Wall Time</td>
             <td>
                 {{slotProps.entry.wt || '-'}} ms
             </td>
@@ -65,7 +65,7 @@
         <tr>
             <td class="table-fit font-weight-bold">Memory usage</td>
             <td>
-                {{slotProps.entry.pmu || '-'}} MB
+                {{slotProps.entry.pmu || '-'}} Bytes
             </td>
         </tr>
         </template>

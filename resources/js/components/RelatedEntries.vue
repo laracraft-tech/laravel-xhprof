@@ -16,7 +16,9 @@
          */
         data(){
             return {
-                // currentTab: 'exceptions'
+                profData: this.entry.profData,
+                profDataSort:'name',
+                profDataSortDir:'asc'
             };
         },
 
@@ -36,51 +38,102 @@
         //     }
         // },
 
+        methods:{
+            sort:function(s) {
+                //if s == current sort, reverse
+                if(s === this.profDataSort) {
+                    this.profDataSortDir = this.profDataSortDir==='asc' ? 'desc':'asc';
+                }
 
-        methods: {
-            // activateTab(tab){
-            //     this.currentTab = tab;
-            //     if(window.history.replaceState) {
-            //         window.history.replaceState(null, null, '#' + this.currentTab);
-            //     }
-            // }
+                this.profDataSort = s;
+            }
         },
 
+        computed:{
+            sortedProfData:function() {
+                // const slicedArray = Object.entries(this.profData).slice(0, 10);
+                // this.profData = Object.fromEntries(slicedArray);
 
-        computed: {
-            profData() {
-                //fore testing -> faster rendering...
-                // const slicedArray = Object.entries(this.entry.profData).slice(0, 10);
-                // return Object.fromEntries(slicedArray);
-                return this.entry.profData;
-            },
+                return Object.fromEntries(Object.entries(this.profData).sort((a,b) => {
+                    let modifier = 1;
+                    if(this.profDataSortDir === 'desc') modifier = -1;
+                    if(a[1][this.profDataSort] < b[1][this.profDataSort]) return -1 * modifier;
+                    if(a[1][this.profDataSort] > b[1][this.profDataSort]) return 1 * modifier;
+                    return 0;
+                }));
+            }
         }
     }
 </script>
 
 <template>
-    <div class="card mt-5" v-if="profData">
+    <div class="prof-data-list card mt-5" v-if="sortedProfData">
         <div>
             <!-- Related Queries -->
             <table class="table table-hover table-sm mb-0">
                 <thead>
                 <tr>
-                    <th>Function</th>
-                    <th>Call Count</th>
-                    <th>Wall Time</th>
-                    <th>CPU</th>
-                    <th>Memory Usage</th>
-                    <th>Peak Memory Usage</th>
-                    <th>Exclusive Wall Time</th>
-                    <th>Exclusive CPU</th>
-                    <th>Exclusive Memory Usage</th>
-                    <th>Exclusive Peak Memory Usage</th>
+                    <th style="cursor:auto;">Function</th>
+                    <th class="pointer" @click="sort('ct')">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                        </svg>
+                        Call Count
+                    </th>
+                    <th class="pointer" @click="sort('wt')">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                        </svg>
+                        Wall Time
+                    </th>
+                    <th class="pointer" @click="sort('cpu')">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                        </svg>
+                        CPU
+                    </th>
+                    <th class="pointer" @click="sort('mu')">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                        </svg>
+                        Memory
+                    </th>
+                    <th class="pointer" @click="sort('pmu')">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                        </svg>
+                        Peak Memory
+                    </th>
+                    <th class="pointer" @click="sort('ct')">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                        </svg>
+                        Exclusive Wall Time
+                    </th>
+                    <th class="pointer" @click="sort('ct')">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                        </svg>
+                        Exclusive CPU
+                    </th>
+                    <th class="pointer" @click="sort('ct')">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                        </svg>
+                        Exclusive Memory
+                    </th>
+                    <th class="pointer" @click="sort('ct')">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                        </svg>
+                        Exclusive Peak Memory
+                    </th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(data, func) in profData">
-                    <td :title="func" class="table-fit">{{truncate(func, 50)}}</td>
+                <tr v-for="(data, func) in sortedProfData">
+                    <td :title="func">{{func}}</td>
                     <td>{{data.ct}}</td>
                     <td>{{data.wt}}</td>
                     <td>{{data.cpu}}</td>

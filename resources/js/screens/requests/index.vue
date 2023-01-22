@@ -14,9 +14,9 @@
             <th scope="col">Verb</th>
             <th scope="col">Path</th>
             <th scope="col">Status</th>
-            <th scope="col">Duration</th>
+            <th scope="col" class="text-nowrap">Wall Time</th>
             <th scope="col">CPU</th>
-            <th scope="col">PMU</th>
+            <th scope="col">Memory</th>
             <th scope="col">Happened</th>
             <th scope="col"></th>
         </tr>

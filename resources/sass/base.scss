@@ -137,6 +137,22 @@ svg.icon {
     }
 }
 
+.prof-data-list {
+    .table {
+        th {
+            cursor: pointer;
+
+            svg {
+                color: $primary;
+                margin-right: 5px;
+                width: 1.5rem;
+                height: 1.5rem;
+                display: block;
+            }
+        }
+    }
+}
+
 .fill-text-color {
     fill: $body-color;
 }

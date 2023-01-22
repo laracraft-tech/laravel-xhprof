@@ -9386,6 +9386,17 @@ svg.icon {
   white-space: nowrap;
 }
 
+.prof-data-list .table th {
+  cursor: pointer;
+}
+.prof-data-list .table th svg {
+  color: #00adb5;
+  margin-right: 5px;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: block;
+}
+
 .fill-text-color {
   fill: #212529;
 }
