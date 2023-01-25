@@ -3304,7 +3304,7 @@ var render = function render() {
     }
   }, [_vm._v("\n                        Function"), _c("br"), _vm._v(" "), _c("span", {
     staticClass: "iconConnector"
-  }, [_vm._v("\n                            Calls\n                            "), _c("svg", {
+  }, [_vm._v("\n                            Call\n                            "), _c("svg", {
     attrs: {
       xmlns: "http://www.w3.org/2000/svg",
       fill: "none",
