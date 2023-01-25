@@ -3297,13 +3297,14 @@ var render = function render() {
   }, [_c("div", [_c("table", {
     staticClass: "table table-hover table-sm mb-0"
   }, [_c("thead", [_c("tr", [_c("th", {
-    staticClass: "pointer",
     on: {
       click: function click($event) {
         return _vm.sort("symbol");
       }
     }
-  }, [_c("svg", {
+  }, [_vm._v("\n                        Function"), _c("br"), _vm._v(" "), _c("span", {
+    staticClass: "iconConnector"
+  }, [_vm._v("\n                            Calls\n                            "), _c("svg", {
     attrs: {
       xmlns: "http://www.w3.org/2000/svg",
       fill: "none",
@@ -3317,14 +3318,15 @@ var render = function render() {
       "stroke-linejoin": "round",
       d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
     }
-  })]), _vm._v("\n                        Function\n                    ")]), _vm._v(" "), _c("th", {
-    staticClass: "pointer",
+  })])])]), _vm._v(" "), _c("th", {
     on: {
       click: function click($event) {
         return _vm.sort("ct");
       }
     }
-  }, [_c("svg", {
+  }, [_vm._v("\n                        Call\n                        "), _c("span", {
+    staticClass: "iconConnector"
+  }, [_vm._v("\n                            Count\n                            "), _c("svg", {
     attrs: {
       xmlns: "http://www.w3.org/2000/svg",
       fill: "none",
@@ -3338,14 +3340,15 @@ var render = function render() {
       "stroke-linejoin": "round",
       d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
     }
-  })]), _vm._v("\n                        Call Count\n                    ")]), _vm._v(" "), _c("th", {
-    staticClass: "pointer",
+  })])])]), _vm._v(" "), _c("th", {
     on: {
       click: function click($event) {
         return _vm.sort("wt");
       }
     }
-  }, [_c("svg", {
+  }, [_vm._v("\n                        Incl. Wall\n                        "), _c("span", {
+    staticClass: "iconConnector"
+  }, [_vm._v("\n                            Time\n                            "), _c("svg", {
     attrs: {
       xmlns: "http://www.w3.org/2000/svg",
       fill: "none",
@@ -3359,14 +3362,15 @@ var render = function render() {
       "stroke-linejoin": "round",
       d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
     }
-  })]), _vm._v("\n                        Wall Time\n                    ")]), _vm._v(" "), _c("th", {
-    staticClass: "pointer",
+  })])])]), _vm._v(" "), _c("th", {
     on: {
       click: function click($event) {
         return _vm.sort("cpu");
       }
     }
-  }, [_c("svg", {
+  }, [_vm._v("\n                        Incl.\n                        "), _c("span", {
+    staticClass: "iconConnector"
+  }, [_vm._v("\n                            CPU\n                            "), _c("svg", {
     attrs: {
       xmlns: "http://www.w3.org/2000/svg",
       fill: "none",
@@ -3380,14 +3384,15 @@ var render = function render() {
       "stroke-linejoin": "round",
       d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
     }
-  })]), _vm._v("\n                        CPU\n                    ")]), _vm._v(" "), _c("th", {
-    staticClass: "pointer",
+  })])])]), _vm._v(" "), _c("th", {
     on: {
       click: function click($event) {
         return _vm.sort("mu");
       }
     }
-  }, [_c("svg", {
+  }, [_vm._v("\n                        Incl.\n                        "), _c("span", {
+    staticClass: "iconConnector"
+  }, [_vm._v("\n                            Memory\n                            "), _c("svg", {
     attrs: {
       xmlns: "http://www.w3.org/2000/svg",
       fill: "none",
@@ -3401,14 +3406,15 @@ var render = function render() {
       "stroke-linejoin": "round",
       d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
     }
-  })]), _vm._v("\n                        Memory\n                    ")]), _vm._v(" "), _c("th", {
-    staticClass: "pointer",
+  })])])]), _vm._v(" "), _c("th", {
     on: {
       click: function click($event) {
         return _vm.sort("pmu");
       }
     }
-  }, [_c("svg", {
+  }, [_vm._v("\n                        Incl. Peak\n                        "), _c("span", {
+    staticClass: "iconConnector"
+  }, [_vm._v("\n                            Memory\n                            "), _c("svg", {
     attrs: {
       xmlns: "http://www.w3.org/2000/svg",
       fill: "none",
@@ -3422,14 +3428,15 @@ var render = function render() {
       "stroke-linejoin": "round",
       d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
     }
-  })]), _vm._v("\n                        Peak Memory\n                    ")]), _vm._v(" "), _c("th", {
-    staticClass: "pointer",
+  })])])]), _vm._v(" "), _c("th", {
     on: {
       click: function click($event) {
         return _vm.sort("ct");
       }
     }
-  }, [_c("svg", {
+  }, [_vm._v("\n                        Excl. Wall\n                        "), _c("span", {
+    staticClass: "iconConnector"
+  }, [_vm._v("\n                            Time\n                            "), _c("svg", {
     attrs: {
       xmlns: "http://www.w3.org/2000/svg",
       fill: "none",
@@ -3443,14 +3450,15 @@ var render = function render() {
       "stroke-linejoin": "round",
       d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
     }
-  })]), _vm._v("\n                        Exclusive Wall Time\n                    ")]), _vm._v(" "), _c("th", {
-    staticClass: "pointer",
+  })])])]), _vm._v(" "), _c("th", {
     on: {
       click: function click($event) {
         return _vm.sort("ct");
       }
     }
-  }, [_c("svg", {
+  }, [_vm._v("\n                        Excl.\n                        "), _c("span", {
+    staticClass: "iconConnector"
+  }, [_vm._v("\n                            CPU\n                            "), _c("svg", {
     attrs: {
       xmlns: "http://www.w3.org/2000/svg",
       fill: "none",
@@ -3464,14 +3472,15 @@ var render = function render() {
       "stroke-linejoin": "round",
       d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
     }
-  })]), _vm._v("\n                        Exclusive CPU\n                    ")]), _vm._v(" "), _c("th", {
-    staticClass: "pointer",
+  })])])]), _vm._v(" "), _c("th", {
     on: {
       click: function click($event) {
         return _vm.sort("ct");
       }
     }
-  }, [_c("svg", {
+  }, [_vm._v("\n                        Excl.\n                        "), _c("span", {
+    staticClass: "iconConnector"
+  }, [_vm._v("\n                            Memory\n                            "), _c("svg", {
     attrs: {
       xmlns: "http://www.w3.org/2000/svg",
       fill: "none",
@@ -3485,14 +3494,15 @@ var render = function render() {
       "stroke-linejoin": "round",
       d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
     }
-  })]), _vm._v("\n                        Exclusive Memory\n                    ")]), _vm._v(" "), _c("th", {
-    staticClass: "pointer",
+  })])])]), _vm._v(" "), _c("th", {
     on: {
       click: function click($event) {
         return _vm.sort("ct");
       }
     }
-  }, [_c("svg", {
+  }, [_vm._v("\n                        Excl. Peak\n                        "), _c("span", {
+    staticClass: "iconConnector"
+  }, [_vm._v("\n                            Memory\n                            "), _c("svg", {
     attrs: {
       xmlns: "http://www.w3.org/2000/svg",
       fill: "none",
@@ -3506,12 +3516,15 @@ var render = function render() {
       "stroke-linejoin": "round",
       d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
     }
-  })]), _vm._v("\n                        Exclusive Peak Memory\n                    ")]), _vm._v(" "), _c("th")])]), _vm._v(" "), _c("tbody", _vm._l(_vm.sortedProfData, function (data) {
+  })])])]), _vm._v(" "), _c("th")])]), _vm._v(" "), _c("tbody", _vm._l(_vm.sortedProfData, function (data) {
     return _c("tr", [_c("td", {
+      staticStyle: {
+        "max-width": "500px"
+      },
       attrs: {
         title: data.symbol
       }
-    }, [_vm._v(_vm._s(data.symbol))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.ct))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.wt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.cpu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.mu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.pmu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_wt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_cpu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_mu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_pmu))]), _vm._v(" "), _c("td", {
+    }, [_vm._v("\n                        " + _vm._s(data.symbol) + "\n                    ")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.ct))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.wt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.cpu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.mu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.pmu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_wt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_cpu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_mu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_pmu))]), _vm._v(" "), _c("td", {
       staticClass: "table-fit"
     }, [_c("svg", {
       attrs: {
