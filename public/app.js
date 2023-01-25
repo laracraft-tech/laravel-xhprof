@@ -2581,9 +2581,13 @@ __webpack_require__.r(__webpack_exports__);
       return Object.fromEntries(Object.entries(this.profData).sort(function (a, b) {
         var modifier = 1;
         if (_this.profDataSortDir === 'desc') modifier = -1;
-        if (a[1][_this.profDataSort] < b[1][_this.profDataSort]) return -1 * modifier;
-        if (a[1][_this.profDataSort] > b[1][_this.profDataSort]) return 1 * modifier;
-        return 0;
+        if (_this.profDataSort === 'symbol') {
+          return a[1][_this.profDataSort].localeCompare(b[1][_this.profDataSort]) * -modifier;
+        } else {
+          if (a[1][_this.profDataSort] < b[1][_this.profDataSort]) return -1 * modifier;
+          if (a[1][_this.profDataSort] > b[1][_this.profDataSort]) return 1 * modifier;
+          return 0;
+        }
       }));
     }
   }
@@ -3293,10 +3297,27 @@ var render = function render() {
   }, [_c("div", [_c("table", {
     staticClass: "table table-hover table-sm mb-0"
   }, [_c("thead", [_c("tr", [_c("th", {
-    staticStyle: {
-      cursor: "auto"
+    staticClass: "pointer",
+    on: {
+      click: function click($event) {
+        return _vm.sort("symbol");
+      }
     }
-  }, [_vm._v("Function")]), _vm._v(" "), _c("th", {
+  }, [_c("svg", {
+    attrs: {
+      xmlns: "http://www.w3.org/2000/svg",
+      fill: "none",
+      viewBox: "0 0 24 24",
+      "stroke-width": "1.5",
+      stroke: "currentColor"
+    }
+  }, [_c("path", {
+    attrs: {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+    }
+  })]), _vm._v("\n                        Function\n                    ")]), _vm._v(" "), _c("th", {
     staticClass: "pointer",
     on: {
       click: function click($event) {
@@ -3485,12 +3506,12 @@ var render = function render() {
       "stroke-linejoin": "round",
       d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
     }
-  })]), _vm._v("\n                        Exclusive Peak Memory\n                    ")]), _vm._v(" "), _c("th")])]), _vm._v(" "), _c("tbody", _vm._l(_vm.sortedProfData, function (data, func) {
+  })]), _vm._v("\n                        Exclusive Peak Memory\n                    ")]), _vm._v(" "), _c("th")])]), _vm._v(" "), _c("tbody", _vm._l(_vm.sortedProfData, function (data) {
     return _c("tr", [_c("td", {
       attrs: {
-        title: func
+        title: data.symbol
       }
-    }, [_vm._v(_vm._s(func))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.ct))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.wt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.cpu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.mu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.pmu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_wt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_cpu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_mu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_pmu))]), _vm._v(" "), _c("td", {
+    }, [_vm._v(_vm._s(data.symbol))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.ct))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.wt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.cpu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.mu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.pmu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_wt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_cpu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_mu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_pmu))]), _vm._v(" "), _c("td", {
       staticClass: "table-fit"
     }, [_c("svg", {
       attrs: {
