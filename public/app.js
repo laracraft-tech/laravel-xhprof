@@ -2546,8 +2546,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       profData: this.entry.profData,
-      profDataSort: 'name',
-      profDataSortDir: 'asc'
+      profDataSort: 'wt',
+      profDataSortDir: 'desc'
     };
   },
   /**
@@ -3490,7 +3490,7 @@ var render = function render() {
       attrs: {
         title: func
       }
-    }, [_vm._v(_vm._s(func))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.ct))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.wt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.cpu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.mu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.pmu))]), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td", {
+    }, [_vm._v(_vm._s(func))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.ct))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.wt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.cpu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.mu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.pmu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_wt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_cpu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_mu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_pmu))]), _vm._v(" "), _c("td", {
       staticClass: "table-fit"
     }, [_c("svg", {
       attrs: {

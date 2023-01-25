@@ -17,8 +17,8 @@
         data(){
             return {
                 profData: this.entry.profData,
-                profDataSort:'name',
-                profDataSortDir:'asc'
+                profDataSort:'wt',
+                profDataSortDir:'desc'
             };
         },
 
@@ -139,10 +139,10 @@
                     <td>{{data.cpu}}</td>
                     <td>{{data.mu}}</td>
                     <td>{{data.pmu}}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{data.excl_wt}}</td>
+                    <td>{{data.excl_cpu}}</td>
+                    <td>{{data.excl_mu}}</td>
+                    <td>{{data.excl_pmu}}</td>
 
                     <td class="table-fit">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 16">

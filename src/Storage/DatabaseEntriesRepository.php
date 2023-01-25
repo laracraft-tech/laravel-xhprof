@@ -73,7 +73,7 @@ class DatabaseEntriesRepository implements Contract, ClearableRepository, Prunab
             $entry->wt,
             $entry->cpu,
             $entry->created_at,
-            $entry->prof_data,
+            $entry->getComputedProfData(),
             $tags
         );
     }
