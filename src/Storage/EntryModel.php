@@ -287,6 +287,8 @@ class EntryModel extends Model
             foreach ($metrics as $metric) {
                 $computed[$symbol]["excl_" . $metric] = $computed[$symbol][$metric];
             }
+
+            $computed[$symbol]['symbol'] = $symbol;
         }
 
         /* adjust exclusive times by deducting inclusive time of children */

@@ -57,9 +57,14 @@
                 return Object.fromEntries(Object.entries(this.profData).sort((a,b) => {
                     let modifier = 1;
                     if(this.profDataSortDir === 'desc') modifier = -1;
-                    if(a[1][this.profDataSort] < b[1][this.profDataSort]) return -1 * modifier;
-                    if(a[1][this.profDataSort] > b[1][this.profDataSort]) return 1 * modifier;
-                    return 0;
+
+                    if (this.profDataSort === 'symbol') {
+                        return a[1][this.profDataSort].localeCompare(b[1][this.profDataSort]) * -modifier;
+                    } else {
+                        if(a[1][this.profDataSort] < b[1][this.profDataSort]) return -1 * modifier;
+                        if(a[1][this.profDataSort] > b[1][this.profDataSort]) return 1 * modifier;
+                        return 0;
+                    }
                 }));
             }
         }
@@ -73,7 +78,12 @@
             <table class="table table-hover table-sm mb-0">
                 <thead>
                 <tr>
-                    <th style="cursor:auto;">Function</th>
+                    <th class="pointer" @click="sort('symbol')">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                        </svg>
+                        Function
+                    </th>
                     <th class="pointer" @click="sort('ct')">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
@@ -132,8 +142,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(data, func) in sortedProfData">
-                    <td :title="func">{{func}}</td>
+                <tr v-for="data in sortedProfData">
+                    <td :title="data.symbol">{{data.symbol}}</td>
                     <td>{{data.ct}}</td>
                     <td>{{data.wt}}</td>
                     <td>{{data.cpu}}</td>
