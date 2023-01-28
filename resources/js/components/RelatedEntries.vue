@@ -17,8 +17,20 @@
         data(){
             return {
                 profData: this.entry.profData,
-                profDataSort:'wt',
-                profDataSortDir:'desc'
+                profDataSort: 'wt',
+                profDataSortDir: 'desc',
+                profDataKey2Title: {
+                    "symbol": {"partOne": "Function", "partTwo": "Call"},
+                    "ct": {"partOne": "Call", "partTwo": "Count"},
+                    "wt": {"partOne": "Incl. Wall", "partTwo": "Time"},
+                    "cpu": {"partOne": "Incl.", "partTwo": "CPU"},
+                    "mu": {"partOne": "Incl.", "partTwo": "Memory"},
+                    "pmu": {"partOne": "Incl. Peak", "partTwo": "Memory"},
+                    "excl_wt": {"partOne": "Excl. Wall", "partTwo": "Time"},
+                    "excl_cpu": {"partOne": "Excl.", "partTwo": "CPU"},
+                    "excl_mu": {"partOne": "Excl.", "partTwo": "Memory"},
+                    "excl_pmu": {"partOne": "Excl. Peak", "partTwo": "Memory"},
+                }
             };
         },
 
@@ -78,91 +90,10 @@
             <table class="table table-hover table-sm mb-0">
                 <thead>
                 <tr>
-                    <th @click="sort('symbol')">
-                        Function<br />
+                    <th v-for="(title, key) in profDataKey2Title" @click="sort(key)" :key="key">
+                        {{ title.partOne }}<br />
                         <span class="iconConnector">
-                            Call
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                            </svg>
-                        </span>
-                    </th>
-                    <th @click="sort('ct')">
-                        Call
-                        <span class="iconConnector">
-                            Count
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                            </svg>
-                        </span>
-                    </th>
-                    <th @click="sort('wt')">
-                        Incl. Wall
-                        <span class="iconConnector">
-                            Time
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                            </svg>
-                        </span>
-                    </th>
-                    <th @click="sort('cpu')">
-                        Incl.
-                        <span class="iconConnector">
-                            CPU
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                            </svg>
-                        </span>
-                    </th>
-                    <th @click="sort('mu')">
-                        Incl.
-                        <span class="iconConnector">
-                            Memory
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                            </svg>
-                        </span>
-                    </th>
-                    <th @click="sort('pmu')">
-                        Incl. Peak
-                        <span class="iconConnector">
-                            Memory
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                            </svg>
-                        </span>
-                    </th>
-                    <th @click="sort('ct')">
-                        Excl. Wall
-                        <span class="iconConnector">
-                            Time
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                            </svg>
-                        </span>
-                    </th>
-                    <th @click="sort('ct')">
-                        Excl.
-                        <span class="iconConnector">
-                            CPU
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                            </svg>
-                        </span>
-                    </th>
-                    <th @click="sort('ct')">
-                        Excl.
-                        <span class="iconConnector">
-                            Memory
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                            </svg>
-                        </span>
-                    </th>
-                    <th @click="sort('ct')">
-                        Excl. Peak
-                        <span class="iconConnector">
-                            Memory
+                            {{ title.partTwo }}
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
                             </svg>
@@ -173,19 +104,9 @@
                 </thead>
                 <tbody>
                 <tr v-for="data in sortedProfData">
-                    <td :title="data.symbol" style="max-width: 500px;">
-                        {{data.symbol}}
+                    <td v-for="(title, key) in profDataKey2Title" :key="key" :style="key === 'symbol' ? 'max-width:500px;' : ''">
+                        {{data[key]}}
                     </td>
-                    <td>{{data.ct}}</td>
-                    <td>{{data.wt}}</td>
-                    <td>{{data.cpu}}</td>
-                    <td>{{data.mu}}</td>
-                    <td>{{data.pmu}}</td>
-                    <td>{{data.excl_wt}}</td>
-                    <td>{{data.excl_cpu}}</td>
-                    <td>{{data.excl_mu}}</td>
-                    <td>{{data.excl_pmu}}</td>
-
                     <td class="table-fit">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 16">
                             <path d="M16.56 13.66a8 8 0 0 1-11.32 0L.3 8.7a1 1 0 0 1 0-1.42l4.95-4.95a8 8 0 0 1 11.32 0l4.95 4.95a1 1 0 0 1 0 1.42l-4.95 4.95-.01.01zm-9.9-1.42a6 6 0 0 0 8.48 0L19.38 8l-4.24-4.24a6 6 0 0 0-8.48 0L2.4 8l4.25 4.24h.01zM10.9 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path>

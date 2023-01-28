@@ -2547,7 +2547,49 @@ __webpack_require__.r(__webpack_exports__);
     return {
       profData: this.entry.profData,
       profDataSort: 'wt',
-      profDataSortDir: 'desc'
+      profDataSortDir: 'desc',
+      profDataKey2Title: {
+        "symbol": {
+          "partOne": "Function",
+          "partTwo": "Call"
+        },
+        "ct": {
+          "partOne": "Call",
+          "partTwo": "Count"
+        },
+        "wt": {
+          "partOne": "Incl. Wall",
+          "partTwo": "Time"
+        },
+        "cpu": {
+          "partOne": "Incl.",
+          "partTwo": "CPU"
+        },
+        "mu": {
+          "partOne": "Incl.",
+          "partTwo": "Memory"
+        },
+        "pmu": {
+          "partOne": "Incl. Peak",
+          "partTwo": "Memory"
+        },
+        "excl_wt": {
+          "partOne": "Excl. Wall",
+          "partTwo": "Time"
+        },
+        "excl_cpu": {
+          "partOne": "Excl.",
+          "partTwo": "CPU"
+        },
+        "excl_mu": {
+          "partOne": "Excl.",
+          "partTwo": "Memory"
+        },
+        "excl_pmu": {
+          "partOne": "Excl. Peak",
+          "partTwo": "Memory"
+        }
+      }
     };
   },
   /**
@@ -3296,235 +3338,38 @@ var render = function render() {
     staticClass: "prof-data-list card mt-5"
   }, [_c("div", [_c("table", {
     staticClass: "table table-hover table-sm mb-0"
-  }, [_c("thead", [_c("tr", [_c("th", {
-    on: {
-      click: function click($event) {
-        return _vm.sort("symbol");
+  }, [_c("thead", [_c("tr", [_vm._l(_vm.profDataKey2Title, function (title, key) {
+    return _c("th", {
+      key: key,
+      on: {
+        click: function click($event) {
+          return _vm.sort(key);
+        }
       }
-    }
-  }, [_vm._v("\n                        Function"), _c("br"), _vm._v(" "), _c("span", {
-    staticClass: "iconConnector"
-  }, [_vm._v("\n                            Call\n                            "), _c("svg", {
-    attrs: {
-      xmlns: "http://www.w3.org/2000/svg",
-      fill: "none",
-      viewBox: "0 0 24 24",
-      "stroke-width": "1.5",
-      stroke: "currentColor"
-    }
-  }, [_c("path", {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-    }
-  })])])]), _vm._v(" "), _c("th", {
-    on: {
-      click: function click($event) {
-        return _vm.sort("ct");
-      }
-    }
-  }, [_vm._v("\n                        Call\n                        "), _c("span", {
-    staticClass: "iconConnector"
-  }, [_vm._v("\n                            Count\n                            "), _c("svg", {
-    attrs: {
-      xmlns: "http://www.w3.org/2000/svg",
-      fill: "none",
-      viewBox: "0 0 24 24",
-      "stroke-width": "1.5",
-      stroke: "currentColor"
-    }
-  }, [_c("path", {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-    }
-  })])])]), _vm._v(" "), _c("th", {
-    on: {
-      click: function click($event) {
-        return _vm.sort("wt");
-      }
-    }
-  }, [_vm._v("\n                        Incl. Wall\n                        "), _c("span", {
-    staticClass: "iconConnector"
-  }, [_vm._v("\n                            Time\n                            "), _c("svg", {
-    attrs: {
-      xmlns: "http://www.w3.org/2000/svg",
-      fill: "none",
-      viewBox: "0 0 24 24",
-      "stroke-width": "1.5",
-      stroke: "currentColor"
-    }
-  }, [_c("path", {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-    }
-  })])])]), _vm._v(" "), _c("th", {
-    on: {
-      click: function click($event) {
-        return _vm.sort("cpu");
-      }
-    }
-  }, [_vm._v("\n                        Incl.\n                        "), _c("span", {
-    staticClass: "iconConnector"
-  }, [_vm._v("\n                            CPU\n                            "), _c("svg", {
-    attrs: {
-      xmlns: "http://www.w3.org/2000/svg",
-      fill: "none",
-      viewBox: "0 0 24 24",
-      "stroke-width": "1.5",
-      stroke: "currentColor"
-    }
-  }, [_c("path", {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-    }
-  })])])]), _vm._v(" "), _c("th", {
-    on: {
-      click: function click($event) {
-        return _vm.sort("mu");
-      }
-    }
-  }, [_vm._v("\n                        Incl.\n                        "), _c("span", {
-    staticClass: "iconConnector"
-  }, [_vm._v("\n                            Memory\n                            "), _c("svg", {
-    attrs: {
-      xmlns: "http://www.w3.org/2000/svg",
-      fill: "none",
-      viewBox: "0 0 24 24",
-      "stroke-width": "1.5",
-      stroke: "currentColor"
-    }
-  }, [_c("path", {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-    }
-  })])])]), _vm._v(" "), _c("th", {
-    on: {
-      click: function click($event) {
-        return _vm.sort("pmu");
-      }
-    }
-  }, [_vm._v("\n                        Incl. Peak\n                        "), _c("span", {
-    staticClass: "iconConnector"
-  }, [_vm._v("\n                            Memory\n                            "), _c("svg", {
-    attrs: {
-      xmlns: "http://www.w3.org/2000/svg",
-      fill: "none",
-      viewBox: "0 0 24 24",
-      "stroke-width": "1.5",
-      stroke: "currentColor"
-    }
-  }, [_c("path", {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-    }
-  })])])]), _vm._v(" "), _c("th", {
-    on: {
-      click: function click($event) {
-        return _vm.sort("ct");
-      }
-    }
-  }, [_vm._v("\n                        Excl. Wall\n                        "), _c("span", {
-    staticClass: "iconConnector"
-  }, [_vm._v("\n                            Time\n                            "), _c("svg", {
-    attrs: {
-      xmlns: "http://www.w3.org/2000/svg",
-      fill: "none",
-      viewBox: "0 0 24 24",
-      "stroke-width": "1.5",
-      stroke: "currentColor"
-    }
-  }, [_c("path", {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-    }
-  })])])]), _vm._v(" "), _c("th", {
-    on: {
-      click: function click($event) {
-        return _vm.sort("ct");
-      }
-    }
-  }, [_vm._v("\n                        Excl.\n                        "), _c("span", {
-    staticClass: "iconConnector"
-  }, [_vm._v("\n                            CPU\n                            "), _c("svg", {
-    attrs: {
-      xmlns: "http://www.w3.org/2000/svg",
-      fill: "none",
-      viewBox: "0 0 24 24",
-      "stroke-width": "1.5",
-      stroke: "currentColor"
-    }
-  }, [_c("path", {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-    }
-  })])])]), _vm._v(" "), _c("th", {
-    on: {
-      click: function click($event) {
-        return _vm.sort("ct");
-      }
-    }
-  }, [_vm._v("\n                        Excl.\n                        "), _c("span", {
-    staticClass: "iconConnector"
-  }, [_vm._v("\n                            Memory\n                            "), _c("svg", {
-    attrs: {
-      xmlns: "http://www.w3.org/2000/svg",
-      fill: "none",
-      viewBox: "0 0 24 24",
-      "stroke-width": "1.5",
-      stroke: "currentColor"
-    }
-  }, [_c("path", {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-    }
-  })])])]), _vm._v(" "), _c("th", {
-    on: {
-      click: function click($event) {
-        return _vm.sort("ct");
-      }
-    }
-  }, [_vm._v("\n                        Excl. Peak\n                        "), _c("span", {
-    staticClass: "iconConnector"
-  }, [_vm._v("\n                            Memory\n                            "), _c("svg", {
-    attrs: {
-      xmlns: "http://www.w3.org/2000/svg",
-      fill: "none",
-      viewBox: "0 0 24 24",
-      "stroke-width": "1.5",
-      stroke: "currentColor"
-    }
-  }, [_c("path", {
-    attrs: {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-    }
-  })])])]), _vm._v(" "), _c("th")])]), _vm._v(" "), _c("tbody", _vm._l(_vm.sortedProfData, function (data) {
-    return _c("tr", [_c("td", {
-      staticStyle: {
-        "max-width": "500px"
-      },
+    }, [_vm._v("\n                        " + _vm._s(title.partOne)), _c("br"), _vm._v(" "), _c("span", {
+      staticClass: "iconConnector"
+    }, [_vm._v("\n                            " + _vm._s(title.partTwo) + "\n                            "), _c("svg", {
       attrs: {
-        title: data.symbol
+        xmlns: "http://www.w3.org/2000/svg",
+        fill: "none",
+        viewBox: "0 0 24 24",
+        "stroke-width": "1.5",
+        stroke: "currentColor"
       }
-    }, [_vm._v("\n                        " + _vm._s(data.symbol) + "\n                    ")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.ct))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.wt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.cpu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.mu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.pmu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_wt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_cpu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_mu))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(data.excl_pmu))]), _vm._v(" "), _c("td", {
+    }, [_c("path", {
+      attrs: {
+        "stroke-linecap": "round",
+        "stroke-linejoin": "round",
+        d: "M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+      }
+    })])])]);
+  }), _vm._v(" "), _c("th")], 2)]), _vm._v(" "), _c("tbody", _vm._l(_vm.sortedProfData, function (data) {
+    return _c("tr", [_vm._l(_vm.profDataKey2Title, function (title, key) {
+      return _c("td", {
+        key: key,
+        style: key === "symbol" ? "max-width:500px;" : ""
+      }, [_vm._v("\n                        " + _vm._s(data[key]) + "\n                    ")]);
+    }), _vm._v(" "), _c("td", {
       staticClass: "table-fit"
     }, [_c("svg", {
       attrs: {
@@ -3535,7 +3380,7 @@ var render = function render() {
       attrs: {
         d: "M16.56 13.66a8 8 0 0 1-11.32 0L.3 8.7a1 1 0 0 1 0-1.42l4.95-4.95a8 8 0 0 1 11.32 0l4.95 4.95a1 1 0 0 1 0 1.42l-4.95 4.95-.01.01zm-9.9-1.42a6 6 0 0 0 8.48 0L19.38 8l-4.24-4.24a6 6 0 0 0-8.48 0L2.4 8l4.25 4.24h.01zM10.9 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
       }
-    })])])]);
+    })])])], 2);
   }), 0)])])]) : _vm._e();
 };
 var staticRenderFns = [];
