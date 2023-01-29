@@ -54,7 +54,7 @@
             sort:function(s) {
                 //if s == current sort, reverse
                 if(s === this.profDataSort) {
-                    this.profDataSortDir = this.profDataSortDir==='asc' ? 'desc':'asc';
+                    this.profDataSortDir = this.profDataSortDir === 'asc' ? 'desc':'asc';
                 }
 
                 this.profDataSort = s;
@@ -94,9 +94,23 @@
                         {{ title.partOne }}<br />
                         <span class="iconConnector">
                             {{ title.partTwo }}
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                            </svg>
+                            <span v-if="profDataSort === key">
+                                <span v-if="profDataSortDir === 'desc'">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                    </svg>
+                                </span>
+                                <span v-else>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                        <path fill-rule="evenodd" d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z" clip-rule="evenodd" />
+                                    </svg>
+                                </span>
+                            </span>
+                            <span v-else>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                                </svg>
+                            </span>
                         </span>
                     </th>
                     <th></th>
