@@ -3338,17 +3338,18 @@ var render = function render() {
     staticClass: "prof-data-list card mt-5"
   }, [_c("div", [_c("table", {
     staticClass: "table table-hover table-sm mb-0"
-  }, [_c("thead", [_c("tr", [_vm._l(_vm.profDataKey2Title, function (title, key) {
+  }, [_c("thead", [_c("tr", [_vm._l(_vm.profDataKey2Title, function (item, key) {
     return _c("th", {
       key: key,
+      "class": key,
       on: {
         click: function click($event) {
           return _vm.sort(key);
         }
       }
-    }, [_vm._v("\n                        " + _vm._s(title.partOne)), _c("br"), _vm._v(" "), _c("span", {
+    }, [_vm._v("\n                    " + _vm._s(item.partOne)), _c("br"), _vm._v(" "), _c("span", {
       staticClass: "iconConnector"
-    }, [_vm._v("\n                            " + _vm._s(title.partTwo) + "\n                            "), _vm.profDataSortDir === "desc" ? _c("span", [_c("svg", {
+    }, [_vm._v("\n                        " + _vm._s(item.partTwo) + "\n                        "), _vm.profDataSortDir === "desc" ? _c("span", [_c("svg", {
       staticClass: "w-5 h-5",
       style: _vm.profDataSort !== key ? "color:gray;" : "",
       attrs: {
@@ -3378,13 +3379,23 @@ var render = function render() {
       }
     })])])])]);
   }), _vm._v(" "), _c("th")], 2)]), _vm._v(" "), _c("tbody", _vm._l(_vm.sortedProfData, function (data) {
-    return _c("tr", [_vm._l(_vm.profDataKey2Title, function (title, key) {
+    return _c("tr", [_vm._l(_vm.profDataKey2Title, function (item, key) {
       return _c("td", {
         key: key,
-        style: key === "symbol" ? "max-width:500px;" : ""
-      }, [_vm._v("\n                        " + _vm._s(data[key]) + "\n                    ")]);
+        "class": key
+      }, [_vm._v("\n                    " + _vm._s(data[key]) + "\n                ")]);
     }), _vm._v(" "), _c("td", {
       staticClass: "table-fit"
+    }, [_c("router-link", {
+      staticClass: "control-action",
+      attrs: {
+        to: {
+          name: "request-preview",
+          params: {
+            id: data.id
+          }
+        }
+      }
     }, [_c("svg", {
       attrs: {
         xmlns: "http://www.w3.org/2000/svg",
@@ -3394,7 +3405,7 @@ var render = function render() {
       attrs: {
         d: "M16.56 13.66a8 8 0 0 1-11.32 0L.3 8.7a1 1 0 0 1 0-1.42l4.95-4.95a8 8 0 0 1 11.32 0l4.95 4.95a1 1 0 0 1 0 1.42l-4.95 4.95-.01.01zm-9.9-1.42a6 6 0 0 0 8.48 0L19.38 8l-4.24-4.24a6 6 0 0 0-8.48 0L2.4 8l4.25 4.24h.01zM10.9 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
       }
-    })])])], 2);
+    })])])], 1)], 2);
   }), 0)])])]) : _vm._e();
 };
 var staticRenderFns = [];
@@ -3471,7 +3482,7 @@ var render = function render() {
           attrs: {
             title: slotProps.entry.content.command
           }
-        }, [_vm._v(_vm._s(_vm.truncate(slotProps.entry.content.command, 90)))]), _vm._v(" "), _c("td", {
+        }, [_vm._v(_vm._s(_vm.truncate(slotProps.entry.content.command, 140)))]), _vm._v(" "), _c("td", {
           staticClass: "table-fit"
         }, [_vm._v(_vm._s(slotProps.entry.content.exit_code))]), _vm._v(" "), _c("td", {
           staticClass: "table-fit",
@@ -3671,7 +3682,7 @@ var render = function render() {
           attrs: {
             title: slotProps.entry.content.name
           }
-        }, [_vm._v(_vm._s(_vm.truncate(slotProps.entry.content.name, 68)))]), _c("br"), _vm._v(" "), _c("small", {
+        }, [_vm._v(_vm._s(_vm.truncate(slotProps.entry.content.name, 118)))]), _c("br"), _vm._v(" "), _c("small", {
           staticClass: "text-muted"
         }, [_vm._v("\n                Connection: " + _vm._s(slotProps.entry.content.connection) + " | Queue: " + _vm._s(slotProps.entry.content.queue) + "\n            ")])]), _vm._v(" "), _c("td", {
           staticClass: "table-fit"
@@ -4090,7 +4101,7 @@ var render = function render() {
           attrs: {
             title: slotProps.entry.content.uri
           }
-        }, [_vm._v(_vm._s(_vm.truncate(slotProps.entry.content.uri, 50)))]), _vm._v(" "), _c("td", {
+        }, [_vm._v(_vm._s(_vm.truncate(slotProps.entry.content.uri, 150)))]), _vm._v(" "), _c("td", {
           staticClass: "table-fit"
         }, [_c("span", {
           staticClass: "badge font-weight-light",
@@ -4348,7 +4359,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "row",
       fn: function fn(slotProps) {
-        return [_c("td", [_vm._v(_vm._s(_vm.truncate(slotProps.entry.content.description, 85) || _vm.truncate(slotProps.entry.content.command, 85)))]), _vm._v(" "), _c("td", {
+        return [_c("td", [_vm._v(_vm._s(_vm.truncate(slotProps.entry.content.description, 85) || _vm.truncate(slotProps.entry.content.command, 135)))]), _vm._v(" "), _c("td", {
           staticClass: "table-fit"
         }, [_vm._v(_vm._s(slotProps.entry.content.expression))]), _vm._v(" "), _c("td", {
           staticClass: "table-fit",

@@ -9392,6 +9392,9 @@ svg.icon {
 .prof-data-list .table th:hover {
   background-color: #343434;
 }
+.prof-data-list .table th.pmu {
+  border-right: 1px solid #efefef;
+}
 .prof-data-list .table th .iconConnector {
   white-space: nowrap;
 }
@@ -9400,6 +9403,12 @@ svg.icon {
   margin-left: 5px;
   width: 1.5rem;
   height: 1.5rem;
+}
+.prof-data-list .table td.symbol {
+  max-width: 500px;
+}
+.prof-data-list .table td.pmu {
+  border-right: 1px solid #efefef;
 }
 
 .fill-text-color {

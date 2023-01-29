@@ -12,7 +12,7 @@
         </tr>
 
         <template slot="row" slot-scope="slotProps">
-            <td :title="slotProps.entry.content.command">{{truncate(slotProps.entry.content.command, 90)}}</td>
+            <td :title="slotProps.entry.content.command">{{truncate(slotProps.entry.content.command, 140)}}</td>
 
             <td class="table-fit">{{slotProps.entry.content.exit_code}}</td>
 

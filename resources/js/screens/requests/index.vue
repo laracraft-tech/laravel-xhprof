@@ -29,7 +29,7 @@
                 </span>
             </td>
 
-            <td :title="slotProps.entry.content.uri">{{truncate(slotProps.entry.content.uri, 50)}}</td>
+            <td :title="slotProps.entry.content.uri">{{truncate(slotProps.entry.content.uri, 150)}}</td>
 
             <td class="table-fit">
                 <span class="badge font-weight-light" :class="'badge-'+requestStatusClass(slotProps.entry.content.response_status)">

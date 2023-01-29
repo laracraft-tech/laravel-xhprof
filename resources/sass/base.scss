@@ -146,6 +146,10 @@ svg.icon {
                 background-color: $table-hover-bg;
             }
 
+            &.pmu {
+                border-right: 1px solid $border-color;
+            }
+
             .iconConnector {
                 white-space: nowrap;
             }
@@ -155,6 +159,16 @@ svg.icon {
                 margin-left: 5px;
                 width: 1.5rem;
                 height: 1.5rem;
+            }
+        }
+
+        td {
+            &.symbol {
+                max-width: 500px;
+            }
+
+            &.pmu {
+                border-right: 1px solid $border-color;
             }
         }
     }
