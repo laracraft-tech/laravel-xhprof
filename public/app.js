@@ -3482,9 +3482,15 @@ var render = function render() {
           attrs: {
             title: slotProps.entry.content.command
           }
-        }, [_vm._v(_vm._s(_vm.truncate(slotProps.entry.content.command, 140)))]), _vm._v(" "), _c("td", {
+        }, [_vm._v(_vm._s(_vm.truncate(slotProps.entry.content.command, 200)))]), _vm._v(" "), _c("td", {
           staticClass: "table-fit"
         }, [_vm._v(_vm._s(slotProps.entry.content.exit_code))]), _vm._v(" "), _c("td", {
+          staticClass: "table-fit text-right"
+        }, [slotProps.entry.wt ? _c("span", [_vm._v(_vm._s(slotProps.entry.wt) + "ms")]) : _c("span", [_vm._v("-")])]), _vm._v(" "), _c("td", {
+          staticClass: "table-fit text-right"
+        }, [slotProps.entry.cpu ? _c("span", [_vm._v(_vm._s(slotProps.entry.cpu))]) : _c("span", [_vm._v("-")])]), _vm._v(" "), _c("td", {
+          staticClass: "table-fit text-right"
+        }, [slotProps.entry.pmu ? _c("span", [_vm._v(_vm._s(slotProps.entry.pmu))]) : _c("span", [_vm._v("-")])]), _vm._v(" "), _c("td", {
           staticClass: "table-fit",
           attrs: {
             "data-timeago": slotProps.entry.created_at,
@@ -3529,6 +3535,19 @@ var render = function render() {
       scope: "col"
     }
   }, [_vm._v("Exit Code")]), _vm._v(" "), _c("th", {
+    staticClass: "text-nowrap",
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Wall Time")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("CPU")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Memory")]), _vm._v(" "), _c("th", {
     attrs: {
       scope: "col"
     }

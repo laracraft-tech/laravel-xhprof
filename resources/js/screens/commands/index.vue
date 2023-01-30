@@ -7,14 +7,32 @@
         <tr slot="table-header">
             <th scope="col">Command</th>
             <th scope="col" class="table-fit">Exit Code</th>
+            <th scope="col" class="text-nowrap">Wall Time</th>
+            <th scope="col">CPU</th>
+            <th scope="col">Memory</th>
             <th scope="col">Happened</th>
             <th scope="col"></th>
         </tr>
 
         <template slot="row" slot-scope="slotProps">
-            <td :title="slotProps.entry.content.command">{{truncate(slotProps.entry.content.command, 140)}}</td>
+            <td :title="slotProps.entry.content.command">{{truncate(slotProps.entry.content.command, 200)}}</td>
 
             <td class="table-fit">{{slotProps.entry.content.exit_code}}</td>
+
+            <td class="table-fit text-right">
+                <span v-if="slotProps.entry.wt">{{slotProps.entry.wt}}ms</span>
+                <span v-else>-</span>
+            </td>
+
+            <td class="table-fit text-right">
+                <span v-if="slotProps.entry.cpu">{{slotProps.entry.cpu}}</span>
+                <span v-else>-</span>
+            </td>
+
+            <td class="table-fit text-right">
+                <span v-if="slotProps.entry.pmu">{{slotProps.entry.pmu}}</span>
+                <span v-else>-</span>
+            </td>
 
             <td class="table-fit" :data-timeago="slotProps.entry.created_at" :title="slotProps.entry.created_at">
                 {{timeAgo(slotProps.entry.created_at)}}

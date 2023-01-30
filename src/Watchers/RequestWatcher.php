@@ -51,8 +51,6 @@ class RequestWatcher extends Watcher
 
         $this->xhprof->disable();
 
-        $startTime = defined('LARAVEL_START') ? LARAVEL_START : $event->request->server('REQUEST_TIME_FLOAT');
-
         Spyglass::recordRequest(IncomingEntry::make([
             'ip_address' => $event->request->ip(),
             'uri' => str_replace($event->request->root(), '', $event->request->fullUrl()) ?: '/',

@@ -3,6 +3,7 @@
 namespace LaracraftTech\LaravelSpyglass\Watchers;
 
 use Illuminate\Console\Events\CommandFinished;
+use Illuminate\Console\Events\CommandStarting;
 use LaracraftTech\LaravelSpyglass\IncomingEntry;
 use LaracraftTech\LaravelSpyglass\Spyglass;
 
@@ -16,7 +17,13 @@ class CommandWatcher extends Watcher
      */
     public function register($app)
     {
-        $app['events']->listen(CommandFinished::class, [$this, 'recordCommand']);
+        $app['events']->listen(CommandStarting::class, [$this, 'startCommand']);
+        $app['events']->listen(CommandFinished::class, [$this, 'finishCommand']);
+    }
+
+    public function startCommand(CommandStarting $event)
+    {
+        $this->xhprof->enable();
     }
 
     /**
@@ -25,18 +32,20 @@ class CommandWatcher extends Watcher
      * @param  \Illuminate\Console\Events\CommandFinished  $event
      * @return void
      */
-    public function recordCommand(CommandFinished $event)
+    public function finishCommand(CommandFinished $event)
     {
         if (! Spyglass::isRecording() || $this->shouldIgnore($event)) {
             return;
         }
+
+        $this->xhprof->disable();
 
         Spyglass::recordCommand(IncomingEntry::make([
             'command' => $event->command ?? $event->input->getArguments()['command'] ?? 'default',
             'exit_code' => $event->exitCode,
             'arguments' => $event->input->getArguments(),
             'options' => $event->input->getOptions(),
-        ]));
+        ], $this->xhprof->getData()));
     }
 
     /**

@@ -45,7 +45,7 @@ class ScheduleWatcher extends Watcher
                     'timezone' => $event->timezone,
                     'user' => $event->user,
                     'output' => $this->getEventOutput($event),
-                ]));
+                ], []));
             });
         });
     }

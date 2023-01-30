@@ -160,12 +160,12 @@ return [
     */
 
     'watchers' => [
-//        Watchers\CommandWatcher::class => [
-//            'enabled' => env('SPYGLASS_COMMAND_WATCHER', true),
-//            'ignore' => [],
-//        ],
-//
-//        Watchers\JobWatcher::class => env('SPYGLASS_JOB_WATCHER', true),
+        Watchers\CommandWatcher::class => [
+            'enabled' => env('SPYGLASS_COMMAND_WATCHER', true),
+            'ignore' => [],
+        ],
+
+        Watchers\JobWatcher::class => env('SPYGLASS_JOB_WATCHER', true),
 
         Watchers\RequestWatcher::class => [
             'enabled' => env('SPYGLASS_REQUEST_WATCHER', true),
@@ -174,6 +174,6 @@ return [
             'ignore_status_codes' => [],
         ],
 
-//        Watchers\ScheduleWatcher::class => env('SPYGLASS_SCHEDULE_WATCHER', true),
+        Watchers\ScheduleWatcher::class => env('SPYGLASS_SCHEDULE_WATCHER', true),
     ],
 ];
