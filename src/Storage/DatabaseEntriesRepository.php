@@ -88,10 +88,10 @@ class DatabaseEntriesRepository implements Contract, ClearableRepository, Prunab
     public function get($type, EntryQueryOptions $options)
     {
         return EntryModel::on($this->connection)
+            ->selectAllBut($options->exclude)
             ->withSpyglassOptions($type, $options)
             ->take($options->limit)
             ->orderByDesc('created_at')
-            ->exclude($options->exclude)
             ->get()
             ->reject(function ($entry) {
                 return ! is_array($entry->content);

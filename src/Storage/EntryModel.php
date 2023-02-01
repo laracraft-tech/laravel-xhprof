@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use LaracraftTech\LaravelSpyglass\Database\Factories\EntryModelFactory;
+use LaracraftTech\LaravelUsefulTraits\Scopes\ScopeSelectAllBut;
 
 class EntryModel extends Model
 {
-    use HasFactory;
+    use HasFactory, ScopeSelectAllBut;
 
     /**
      * The table associated with the model.
@@ -55,37 +56,6 @@ class EntryModel extends Model
      * @var bool
      */
     public $incrementing = false;
-
-    /**
-     * Scope a query to only exclude specific Columns.
-     *
-     * @author Manojkiran.A <manojkiran10031998@gmail.com>
-     * @param  \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeExclude($query, $columns)
-    {
-        if (!empty($columns)) {
-            return $query->select(array_diff($this->getTableColumns(), $columns));
-        }
-
-        return $query;
-    }
-
-    /**
-     * Shows All the columns of the Corresponding Table of Model
-     *
-     * @author Manojkiran.A <manojkiran10031998@gmail.com>
-     * If You need to get all the Columns of the Model Table.
-     * Useful while including the columns in search
-     * @return array
-     **/
-    public function getTableColumns()
-    {
-        return Cache::rememberForever('MigrMod:'.filemtime(database_path('migrations')).':'.$this->getTable(), function () {
-            return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
-        });
-    }
 
     /**
      * Scope the query for the given query options.
