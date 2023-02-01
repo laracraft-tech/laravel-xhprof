@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use LaracraftTech\LaravelSpyglass\Database\Factories\EntryModelFactory;
-use LaracraftTech\LaravelUsefulTraits\Scopes\ScopeSelectAllBut;
+use LaracraftTech\LaravelUsefulTraits\UsefulScopes;
 
 class EntryModel extends Model
 {
-    use HasFactory, ScopeSelectAllBut;
+    use HasFactory, UsefulScopes;
 
     /**
      * The table associated with the model.
