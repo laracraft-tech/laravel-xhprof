@@ -36,12 +36,12 @@ It's well maintained and provides quite all PHP versions.
 If you have a normal PHP environment, just install the XHProf extension:
 
 ``` bash
-$ sudo add-apt-repository ppa:ondrej/php
-$ sudo apt-get update
-$ sudo apt-get install php php-xhprof graphviz
-$ # you can now check if the extension was successfully installed
-$ php -i | grep xhprof
-$ # maybe restart your webserver or php-fpm...
+sudo add-apt-repository ppa:ondrej/php
+sudo apt-get update
+sudo apt-get install php php-xhprof graphviz
+# you can now check if the extension was successfully installed
+php -i | grep xhprof
+# maybe restart your webserver or php-fpm...
 ```
 
 Note: we need graphviz to generate callgraphs.
@@ -51,16 +51,16 @@ Note: we need graphviz to generate callgraphs.
 If you are using laravel sail, here's a setup for you:
 
 ``` bash
-$ sail up -d
-$ sail artisan sail:publish
-$ # in docker-compose.yml check wich php version is used under build->context (eg. ./docker/8.1)
-$ # if you know the php-version you can type:
-$ nano docker/<php-version>/Dockerfile
-$ # find the block where all php extionsions are installed and add "php<php-version>-xhprof graphviz \"
-$ # now you need to rebuild sail
-$ sail down ; sail build --no-cache ; sail up -d # this may take a while...
-$ # you can now check if the extension was successfully installed
-$ sail php -i | grep xhprof
+sail up -d
+sail artisan sail:publish
+# in docker-compose.yml check wich php version is used under build->context (eg. ./docker/8.1)
+# if you know the php-version you can type:
+nano docker/<php-version>/Dockerfile
+# find the block where all php extionsions are installed and add "php<php-version>-xhprof graphviz \"
+# now you need to rebuild sail
+sail down ; sail build --no-cache ; sail up -d # this may take a while...
+# you can now check if the extension was successfully installed
+sail php -i | grep xhprof
 ```
 
 Note: The provided Laravel Sail Dockerfile already uses ondrejs ppa.
@@ -68,8 +68,8 @@ Note: The provided Laravel Sail Dockerfile already uses ondrejs ppa.
 ### Install the Package
 
 ``` bash
-$ composer require laracraft-tech/laravel-xhprof --dev
-$ php artisan vendor:publish --provider="LaracraftTech\LaravelXhprof\XHProfServiceProvider" --tag="config"
+composer require laracraft-tech/laravel-xhprof --dev
+php artisan vendor:publish --provider="LaracraftTech\LaravelXhprof\XHProfServiceProvider" --tag="config"
 ```
 
 ### Install the UI
@@ -78,9 +78,9 @@ We are using the recommended fork by php.net from "preinheimer":
 https://www.php.net/manual/en/xhprof.requirements.php
 
 ``` bash
-$ mkdir public/vendor ; git clone git@github.com:preinheimer/xhprof.git ./public/vendor/xhprof
-$ # if you havent already, I recommend adding public/vendor to your .gitignore
-$ echo "/public/vendor" >> .gitignore
+mkdir public/vendor ; git clone git@github.com:preinheimer/xhprof.git ./public/vendor/xhprof
+# if you havent already, I recommend adding public/vendor to your .gitignore
+echo "/public/vendor" >> .gitignore
 ```
 
 ### Database
@@ -95,8 +95,8 @@ you may need to make some additional steps. If not, here at first the simple way
 #### In case you DON'T already HAVE an own ``details`` table in your database:
 
 ``` bash
-$ php artisan vendor:publish --provider="LaracraftTech\LaravelXhprof\XHProfServiceProvider" --tag="migrations"
-$ php artisan migrate
+php artisan vendor:publish --provider="LaracraftTech\LaravelXhprof\XHProfServiceProvider" --tag="migrations"
+php artisan migrate
 ```
 <br/>
 
@@ -142,11 +142,11 @@ Note: you also need to create a user which has privileges on that new database!
 Now let's configure some settings!
 
 ``` bash
-$ cp public/vendor/xhprof/xhprof_lib/config.sample.php public/vendor/xhprof/xhprof_lib/config.php
-$ # 1. change the db credentials to your needs
-$ # 2. enable dot_binary section
-$ # 3. if you're local, set $controlIPs to false
-$ nano public/vendor/xhprof/xhprof_lib/config.php
+cp public/vendor/xhprof/xhprof_lib/config.sample.php public/vendor/xhprof/xhprof_lib/config.php
+# 1. change the db credentials to your needs
+# 2. enable dot_binary section
+# 3. if you're local, set $controlIPs to false
+nano public/vendor/xhprof/xhprof_lib/config.php
 ```
 
 ## Usage
@@ -167,7 +167,7 @@ Please see the [changelog](changelog.md) for more information on what has change
 ## Testing
 
 ``` bash
-$ composer test
+composer test
 ```
 
  -->
