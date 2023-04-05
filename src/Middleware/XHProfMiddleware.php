@@ -30,7 +30,11 @@ class XHProfMiddleware
             //to start profiling, just enable it immediately
             $_COOKIE['_profile'] = 1;
 
-            require_once public_path(). '/vendor/xhprof/external/header.php';
+            // Only include if request does not expect JSON.
+            // Not using $request->excpectsJson or $rquest->wantsJson to work with Livewire because Livewire only set content-type header to json.
+            if ($request->header('content-type') !== 'application/json') {
+                require_once public_path(). '/vendor/xhprof/external/header.php';
+            }
         }
 
         return $next($request);
