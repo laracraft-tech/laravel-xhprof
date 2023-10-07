@@ -108,31 +108,30 @@ I recommend to just use a different database.
 CREATE DATABASE xhprof;
 USE xhprof;
 CREATE TABLE IF NOT EXISTS `details` (
-  `idcount` int(11) NOT NULL AUTO_INCREMENT,
-  `id` char(64) NOT NULL,
-  `url` varchar(255) DEFAULT NULL,
-  `c_url` varchar(255) DEFAULT NULL,
+  `id` char(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `c_url` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `server name` varchar(64) DEFAULT NULL,
-  `perfdata` mediumblob,
-  `type` tinyint(4) DEFAULT NULL,
-  `cookie` blob,
-  `post` blob,
+  `server name` char(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `perfdata` longblob,
+  `type` tinyint DEFAULT NULL,
+  `cookie` longblob,
+  `post` longblob,
   `get` blob,
-  `pmu` int(11) DEFAULT NULL,
-  `wt` int(11) DEFAULT NULL,
-  `cpu` int(11) DEFAULT NULL,
-  `server_id` char(64) DEFAULT NULL,
-  `aggregateCalls_include` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`idcount`),
-  KEY `url` (`url`),
-  KEY `c_url` (`c_url`),
-  KEY `cpu` (`cpu`),
-  KEY `wt` (`wt`),
-  KEY `pmu` (`pmu`),
-  KEY `timestamp` (`timestamp`),
-  KEY `Aggregation of the last n entries by Servername` (`server name`(5),`timestamp`)
-);
+  `pmu` int DEFAULT NULL,
+  `wt` int DEFAULT NULL,
+  `cpu` int DEFAULT NULL,
+  `server_id` char(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `aggregateCalls_include` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `details_url_index` (`url`),
+  KEY `details_c_url_index` (`c_url`),
+  KEY `details_cpu_index` (`cpu`),
+  KEY `details_wt_index` (`wt`),
+  KEY `details_pmu_index` (`pmu`),
+  KEY `details_timestamp_index` (`timestamp`),
+  KEY `details_server name_timestamp_index` (`server name`,`timestamp`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ```
 
 Note: you also need to create a user which has privileges on that new database!
