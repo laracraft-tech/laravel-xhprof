@@ -10,10 +10,17 @@
         }
     ],
     "homepage": "https://github.com/laracraft-tech/laravel-xhprof",
-    "keywords": ["laravel", "xhprof", "profiling", "profiler", "profile", "php"],
+    "keywords": [
+        "laravel",
+        "xhprof",
+        "profiling",
+        "profiler",
+        "profile",
+        "php"
+    ],
     "require": {
         "php": ">=7.1",
-        "laravel/framework": "^5.3|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0"
+        "laravel/framework": "^5.3|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0|^12.0"
     },
     "autoload": {
         "psr-4": {
