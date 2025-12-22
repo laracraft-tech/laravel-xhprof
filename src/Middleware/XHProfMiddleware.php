@@ -23,6 +23,12 @@ class XHProfMiddleware
                 throw new Exception('xhprof is enabled but extension is not installed or disabled! Please install or enable xhprof extension!');
             }
 
+            foreach (config('xhprof.skip', []) as $skip) {
+                if (str_contains($request->url(), $skip)) {
+                    return $next($request);
+                }
+            }
+
             //this needs to be declared as global!
             global $_xhprof;
 
