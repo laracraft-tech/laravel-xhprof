@@ -4,6 +4,7 @@
 <a href="https://packagist.org/packages/laracraft-tech/laravel-xhprof"><img src="https://img.shields.io/packagist/dt/laracraft-tech/laravel-xhprof" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/laracraft-tech/laravel-xhprof"><img src="https://img.shields.io/packagist/v/laracraft-tech/laravel-xhprof" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laracraft-tech/laravel-xhprof"><img src="https://img.shields.io/packagist/l/laracraft-tech/laravel-xhprof" alt="License"></a>
+<a href="https://packagist.org/packages/laracraft-tech/laravel-xhprof"><img alt="Laravel Compatibility" src="https://badge.laravel.cloud/badge/laracraft-tech/laravel-xhprof"></a>
 </p>
 
 <!--
