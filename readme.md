@@ -17,10 +17,10 @@
 
 ## Introduction
 
-Laravel XHProf provides you with a simple setup to profile your Laravel application
-with the well-known XHProf PHP extension originally developed by Facebook. 
-It also leads you through the steps to install XHProf UI, a UI to visualize, save, and analyze the results
-of the profiling.
+Laravel XHProf gives you a simple way to profile your Laravel application
+using the well-known XHProf PHP extension, originally developed by Facebook.
+It also walks you through setting up the XHProf UI, which lets you visualize, save, and analyze
+your profiling results.
 
 <p align="center">
 <img src="https://i.imgur.com/tNBhiPg.png">
@@ -29,42 +29,41 @@ of the profiling.
 ## Installation
 
 First, you'll need to install the PHP extension.
-It's highly recommended to use ondrejs ppa.
-It's well maintained and provides quite all PHP versions.
+We highly recommend using Ondrej's PPA, since it's well maintained and covers pretty much every PHP version.
 
-### Normal environment
+### Native PHP environment
 
-If you have a normal PHP environment, just install the XHProf extension:
+If you're running PHP natively on your system, just install the XHProf extension:
 
 ``` bash
 sudo add-apt-repository ppa:ondrej/php
 sudo apt-get update
 sudo apt-get install php php-xhprof Graphviz
-# You can now check if the extension was successfully installed
+# Verify the extension is loaded
 php -i | grep xhprof
-# maybe restart your webserver or php-fpm...
+# you might need to restart your webserver or php-fpm afterwards
 ```
 
-Note: we need Graphviz to generate callgraphs.
+Note: Graphviz is required to generate callgraphs.
 
 ### Laravel Sail environment
 
-If you are using laravel sail, here's a setup for you:
+If you're using Laravel Sail, here's how to set things up:
 
 ``` bash
 sail up -d
 sail artisan sail:publish
-# in docker-compose.yml check wich php version is used under build->context (eg. ./docker/8.1)
-# If you know the php-version you can type:
+# Check docker-compose.yml to see which PHP version is used under build->context (e.g. ./docker/8.1)
+# Then open the matching Dockerfile:
 nano docker/<php-version>/Dockerfile
-# find the block where all php extensions are installed and add "php<php-version>-xhprof graphviz \"
-# Now you need to rebuild the sail
+# Find the block where all PHP extensions get installed and add "php<php-version>-xhprof graphviz \"
+# Now rebuild Sail
 sail down ; sail build --no-cache ; sail up -d # this may take a while...
-# You can now check if the extension was successfully installed
+# Verify the extension is loaded
 sail php -i | grep xhprof
 ```
 
-Note: The provided Laravel Sail Dockerfile already uses ondrejs ppa.
+Note: The provided Laravel Sail Dockerfile already uses Ondrej's PPA.
 
 ### Install the Package
 
@@ -75,25 +74,24 @@ php artisan vendor:publish --provider="LaracraftTech\LaravelXhprof\XHProfService
 
 ### Install the UI
 
-We are using the recommended fork by php.net from "preinheimer":
+We use the fork by "preinheimer", which is the one recommended in the official PHP docs:
 https://www.php.net/manual/en/xhprof.requirements.php
 
 ``` bash
 mkdir public/vendor ; git clone git@github.com:preinheimer/xhprof.git ./public/vendor/xhprof
-# If you haven't already, I recommend adding public/vendor to your .gitignore
+# If you haven't already, we recommend adding public/vendor to your .gitignore
 echo "/public/vendor" >> .gitignore
 ```
 
 ### Database
 
-Since the database table name,
-which the UI package is using behind to store and read data from the database,
-is hard coded to ``details`` and you already may have a table named like that,
-you may need to take some additional steps. If not, here at first the simple way:
+The UI package stores and reads its profiling data from a table that is hard coded to ``details``.
+If you already have a table with that name in your database, you'll need to take a few extra steps.
+Otherwise, here's the straightforward path:
 
 <br/>
 
-#### In case you DON'T already HAVE your own ``details`` table in your database:
+#### If you don't already have a ``details`` table in your database:
 
 ``` bash
 php artisan vendor:publish --provider="LaracraftTech\LaravelXhprof\XHProfServiceProvider" --tag="migrations"
@@ -101,9 +99,9 @@ php artisan migrate
 ```
 <br/>
 
-#### In case you already HAVE an own ``details`` table in your database:
+#### If you already have a ``details`` table in your database:
 
-I recommend just using a different database. 
+In this case we recommend using a separate database just for XHProf. 
 
 ``` mysql
 CREATE DATABASE xhprof;
@@ -135,25 +133,25 @@ CREATE TABLE IF NOT EXISTS `details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ```
 
-Note: you also need to create a user who has privileges on that new database!
+Note: don't forget to create a user that has privileges on the new database!
 
 ### Config
 
-Now let's configure some settings!
+Now let's configure a few settings:
 
 ``` bash
 cp public/vendor/xhprof/xhprof_lib/config.sample.php public/vendor/xhprof/xhprof_lib/config.php
-# 1. Change the DB credentials to your needs
-# 2. enable dot_binary section
-# 3. If you're local, set $controlIPs to false
+# 1. Adjust the DB credentials to match your setup
+# 2. Enable the dot_binary section
+# 3. If you're working locally, set $controlIPs to false
 nano public/vendor/xhprof/xhprof_lib/config.php
 ```
 
 ## Usage
 
-Just set ``XHPROF_ENABLED=true`` in your .env file and
-now every request you make to your application gets profiled. \
-Visit ``<your-host>/vendor/xhprof/xhprof_html/`` to see your profiling results.
+Just set ``XHPROF_ENABLED=true`` in your .env file,
+and from now on every request to your application will be profiled. \
+Visit ``<your-host>/vendor/xhprof/xhprof_html/`` to view the results.
 
 Happy analyzing!
 
